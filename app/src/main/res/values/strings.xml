@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Destagram</string>
+    <string name="action_settings">Settings</string>
+    <string name="home_message_1">Partagez votre monde à votre monde !</string>
+    <string name="home_message_2">C\'est gratuit !</string>
+    <string name="button_login">Se connecter</string>
+    <string name="button_register">S\'inscrire</string>
+    <string name="title_activity_login">Connexion</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_register">Inscription</string>
+
+</resources>
