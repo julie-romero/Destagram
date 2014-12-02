@@ -85,7 +85,7 @@ public class LoginActivity extends Activity {
                         String passwordHash = encryptPassword(password);
 
                         // Requête http
-                        HttpRequest request = new HttpRequest("http://destagram.zz.mu/login.php?email=" + email + "&password=" + passwordHash);
+                        HttpRequest request = new HttpRequest("http://destagram.zz.mu/login.php?login="+email+"&password="+passwordHash);
                         try {
                             Log.d("lala", request.getResponse().toString());
                             // on traduit la réponse en objet JSON
