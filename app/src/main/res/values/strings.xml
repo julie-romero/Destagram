@@ -10,5 +10,9 @@
     <string name="title_activity_login">Connexion</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_register">Inscription</string>
+    <string name="title_activity_profil">Profil</string>
+    <string name="error_empty_fields">Les champs doivent être renseignés.</string>
+    <string name="error_connect">L\'email ou le mot de passe est incorrect.</string>
+    <string name="error_internet">Vous n\'êtes pas connecté à Internet.</string>
 
 </resources>
