@@ -1,11 +1,17 @@
 package com.pauphilet_romero.destagram;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Pattern;
 
 
 public class RegisterActivity extends Activity {
@@ -53,6 +59,33 @@ public class RegisterActivity extends Activity {
     }
 
     public void register(View view) {
+        // récupération de l'email
+        final String email = emailField.getText().toString();
+        // récupération du mot de passe
+        final String password = passwordField.getText().toString();
+        //récupération du mot de passe confirmé
+        final String passwordConfirm = passwordConfirmField.getText().toString();
+        // création de l'intent
+        final Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        // création d'un toast pour afficher les erreurs
+        final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_confirm_password, Toast.LENGTH_SHORT);
+        final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+                "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                        "\\@" +
+                        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                        "(" +
+                        "\\." +
+                        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                        ")+"
+        );
+        if(!password.equals(passwordConfirm)&&password!="")
+            toast.show();
+        else if(!EMAIL_ADDRESS_PATTERN.matcher(email).matches())
+        {
+            toast.setText(R.string.error_wrong_email);
+            toast.show();
+        }
+
 
     }
 }
