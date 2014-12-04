@@ -11,6 +11,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.utils.ConnectionDetector;
+import com.pauphilet_romero.destagram.utils.HttpRequest;
+import com.pauphilet_romero.destagram.utils.PasswordEncrypt;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.regex.Pattern;
 
 
@@ -69,6 +76,7 @@ public class RegisterActivity extends Activity {
         final Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_confirm_password, Toast.LENGTH_SHORT);
+        //Pattern pour la verification de l'email
         final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
                 "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                         "\\@" +
@@ -78,12 +86,65 @@ public class RegisterActivity extends Activity {
                         "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                         ")+"
         );
+        //Si le mot de passe et la confirmation ne sont pas égaux
         if(!password.equals(passwordConfirm)&&password!="")
             toast.show();
+        //Si l'email n'est pas valide
         else if(!EMAIL_ADDRESS_PATTERN.matcher(email).matches())
         {
             toast.setText(R.string.error_wrong_email);
             toast.show();
+        }
+        else
+        {
+            // on vérifie la connexion Internet
+            ConnectionDetector connection = new ConnectionDetector(getApplicationContext());
+            if(connection.isConnectingToInternet()) {
+                // on vérifie que les champs ne sont pas vides
+                if (!email.isEmpty() && !password.isEmpty()) {
+
+                    // nouveau thread pour la requête HTTP
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String passwordHash = PasswordEncrypt.encryptPassword(password);
+
+                            // Requête http // Password provisoire
+                            HttpRequest request = new HttpRequest("http://destagram.zz.mu/register.php?login="+email+"&password="+password);
+                            try {
+                                Log.d("lala", request.getResponse().toString());
+                                // on traduit la réponse en objet JSON
+                                JSONObject json = new JSONObject(request.getResponse());
+
+                                error = json.getBoolean("error");
+                                // si il n'y a pas d'erreur
+                                if (!error) {
+                                    // changement d'activité
+                                    startActivity(intent);
+                                    // sinon on affiche le toast avec le message d'erreur correspondant
+                                } //Si l'email existe déjà
+                                else if(json.getInt("code")==1)
+                                {
+                                    toast.setText(R.string.existing_email);
+                                    toast.show();
+                                }
+                                else {
+                                    toast.setText(R.string.error_connect);
+                                    toast.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    thread.start();
+                } else {
+                    toast.show();
+                }
+            } else {
+                toast.setText(R.string.error_internet);
+                toast.show();
+            }
         }
 
 

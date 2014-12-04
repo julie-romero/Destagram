@@ -19,6 +19,7 @@
 
     <string name="error_empty_fields">Les champs doivent être renseignés.</string>
     <string name="error_confirm_password">Le mot de passe doit être confirmé.</string>
+    <string name="existing_email">Un compte existe déjà pour cette adresse email.</string>
     <string name="error_wrong_email">Vous devez entrer une adresse email valide.</string>
     <string name="error_connect">L\'email ou le mot de passe est incorrect.</string>
     <string name="error_internet">Vous n\'êtes pas connecté à Internet.</string>

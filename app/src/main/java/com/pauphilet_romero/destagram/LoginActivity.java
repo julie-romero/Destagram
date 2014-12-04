@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
+import com.pauphilet_romero.destagram.utils.PasswordEncrypt;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,12 +83,11 @@ public class LoginActivity extends Activity {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String passwordHash = encryptPassword(password);
+                        String passwordHash = PasswordEncrypt.encryptPassword(password);
 
                         // Requête http
                         HttpRequest request = new HttpRequest("http://destagram.zz.mu/login.php?login="+email+"&password="+passwordHash);
                         try {
-                            Log.d("lala", request.getResponse().toString());
                             // on traduit la réponse en objet JSON
                             JSONObject json = new JSONObject(request.getResponse());
 
@@ -117,36 +117,5 @@ public class LoginActivity extends Activity {
             toast.show();
         }
     }
-    private static String encryptPassword(String password)
-    {
-        String sha1 = "";
-        try
-        {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.reset();
-            crypt.update(password.getBytes("UTF-8"));
-            sha1 = byteToHex(crypt.digest());
-        }
-        catch(NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        catch(UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-        return sha1;
-    }
 
-    private static String byteToHex(final byte[] hash)
-    {
-        Formatter formatter = new Formatter();
-        for (byte b : hash)
-        {
-            formatter.format("%02x", b);
-        }
-        String result = formatter.toString();
-        formatter.close();
-        return result;
-    }
 }
