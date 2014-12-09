@@ -3,16 +3,20 @@
 
     <string name="app_name">Destagram</string>
     <string name="action_settings">Settings</string>
+
     <string name="home_message_1">Partagez votre monde à votre monde !</string>
     <string name="home_message_2">C\'est gratuit !</string>
     <string name="button_login">Se connecter</string>
     <string name="button_register">S\'inscrire</string>
+
     <string name="title_activity_login">Connexion</string>
     <string name="title_activity_register">Inscription</string>
     <string name="title_activity_profil">Profil</string>
     <string name="hello_world">Hello world!</string>
+
     <string name="field_email">Email</string>
     <string name="field_password">Mot de passe</string>
+
     <string name="error_empty_fields">Les champs doivent être renseignés.</string>
     <string name="error_confirm_password">Le mot de passe doit être confirmé.</string>
     <string name="existing_email">Un compte existe déjà pour cette adresse email.</string>
@@ -20,7 +24,7 @@
     <string name="error_wrong_password">Le mot de passe doit contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, entre 6 et 20 carac.</string>
     <string name="error_connect">L\'email ou le mot de passe est incorrect.</string>
     <string name="error_internet">Vous n\'êtes pas connecté à Internet.</string>
+
     <string name="register_success">Félicitations ! Vous pouvez maintenant vous connecter sur Destagram.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
