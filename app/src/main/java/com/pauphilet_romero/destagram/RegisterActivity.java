@@ -86,15 +86,24 @@ public class RegisterActivity extends Activity {
                         "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                         ")+"
         );
-        //Si le mot de passe et la confirmation ne sont pas égaux
-        if(!password.equals(passwordConfirm)&&password!="")
-            toast.show();
+        //Pattern pour le mot de passe : au moins 1 minuscule, 1 majuscule, 1 chiffre, entre 6 et 20 caractères
+        final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,20}$");
+
         //Si l'email n'est pas valide
-        else if(!EMAIL_ADDRESS_PATTERN.matcher(email).matches())
+        if(!EMAIL_ADDRESS_PATTERN.matcher(email).matches())
         {
             toast.setText(R.string.error_wrong_email);
             toast.show();
         }
+        // Si le mot de passe n'est pas valide
+        else if (!PASSWORD_PATTERN.matcher(password).matches())
+        {
+            toast.setText(R.string.error_wrong_password);
+            toast.show();
+        }
+        //Si le mot de passe et la confirmation ne sont pas égaux
+        else if(!password.equals(passwordConfirm)&&password!="")
+            toast.show();
         else
         {
             // on vérifie la connexion Internet
@@ -119,6 +128,8 @@ public class RegisterActivity extends Activity {
                                 error = json.getBoolean("error");
                                 // si il n'y a pas d'erreur
                                 if (!error) {
+                                    toast.setText(R.string.register_success);
+                                    toast.show();
                                     // changement d'activité
                                     startActivity(intent);
                                     // sinon on affiche le toast avec le message d'erreur correspondant
