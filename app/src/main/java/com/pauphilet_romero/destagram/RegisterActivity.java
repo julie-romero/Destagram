@@ -18,6 +18,8 @@ import com.pauphilet_romero.destagram.utils.PasswordEncrypt;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
 
@@ -119,7 +121,12 @@ public class RegisterActivity extends Activity {
                             String passwordHash = PasswordEncrypt.encryptPassword(password);
 
                             // Requête http // Password provisoire
-                            HttpRequest request = new HttpRequest("http://destagram.zz.mu/register.php?login="+email+"&password="+password);
+                            HttpRequest request = null;
+                            try {
+                                request = new HttpRequest("http://destagram.zz.mu/register.php?login="+ URLEncoder.encode(email, "UTF-8") + "&password=" + URLEncoder.encode(password, "UTF-8"));
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
                             try {
                                 Log.d("lala", request.getResponse().toString());
                                 // on traduit la réponse en objet JSON

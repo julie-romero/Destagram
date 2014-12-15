@@ -22,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class FriendsListActivity extends Activity {
@@ -48,7 +50,12 @@ public class FriendsListActivity extends Activity {
                 public void run() {
 
                     // Requête http
-                    HttpRequest request = new HttpRequest("http://destagram.zz.mu/friends.php?token="+token);
+                    HttpRequest request = null;
+                    try {
+                        request = new HttpRequest("http://destagram.zz.mu/friends.php?token="+ URLEncoder.encode(token, "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         // on traduit la réponse en objet JSON
                         JSONObject json = new JSONObject(request.getResponse());
@@ -143,7 +150,12 @@ public class FriendsListActivity extends Activity {
                     public void run() {
 
                         // Requête http
-                        HttpRequest request = new HttpRequest("http://destagram.zz.mu/add_friend.php?token="+token+"&username="+username);
+                        HttpRequest request = null;
+                        try {
+                            request = new HttpRequest("http://destagram.zz.mu/add_friend.php?token="+URLEncoder.encode(token, "UTF-8")+"&username="+ URLEncoder.encode(username, "UTF-8"));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                         try {
                             // on traduit la réponse en objet JSON
                             JSONObject json = new JSONObject(request.getResponse());

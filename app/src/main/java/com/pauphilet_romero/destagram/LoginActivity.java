@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -86,7 +87,12 @@ public class LoginActivity extends Activity {
                         String passwordHash = PasswordEncrypt.encryptPassword(password);
 
                         // Requête http
-                        HttpRequest request = new HttpRequest("http://destagram.zz.mu/login.php?login="+email+"&password="+passwordHash);
+                        HttpRequest request = null;
+                        try {
+                            request = new HttpRequest("http://destagram.zz.mu/login.php?login="+ URLEncoder.encode(email, "UTF-8")+"&password="+URLEncoder.encode(passwordHash, "UTF-8"));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                         try {
                             // on traduit la réponse en objet JSON
                             JSONObject json = new JSONObject(request.getResponse());

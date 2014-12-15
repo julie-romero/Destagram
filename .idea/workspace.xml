@@ -55,65 +55,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FriendsListActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/FriendsListActivity.java">
+      <file leaf-file-name="RegisterActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/RegisterActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.785714" vertical-offset="835" max-vertical-offset="3570">
-              <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1322#1349#0" expanded="true" />
-                <element signature="e#1852#4151#0" expanded="true" />
-                <element signature="e#2835#3208#0" expanded="true" />
-                <element signature="e#3177#3178#0" expanded="true" />
-                <element signature="e#3313#3348#0" expanded="true" />
-                <element signature="e#3519#3548#0" expanded="true" />
-                <element signature="e#3719#3744#0" expanded="true" />
-                <element signature="e#3912#3934#0" expanded="true" />
-                <element signature="e#4136#4137#0" expanded="true" />
-                <element signature="e#4226#4249#0" expanded="true" />
-                <element signature="e#5201#5228#0" expanded="true" />
-                <element signature="e#5952#8453#0" expanded="true" />
-                <element signature="e#7021#7422#0" expanded="true" />
-                <element signature="e#7387#7388#0" expanded="true" />
-                <element signature="e#7535#7570#0" expanded="true" />
-                <element signature="e#7757#7786#0" expanded="true" />
-                <element signature="e#7973#7998#0" expanded="true" />
-                <element signature="e#8186#8208#0" expanded="true" />
-                <element signature="e#8434#8435#0" expanded="true" />
-                <element signature="e#8540#8563#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FriendsAdapter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/adapters/FriendsAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="556" max-vertical-offset="1088">
-              <caret line="42" column="34" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Friend.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/models/Friend.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.07906977" vertical-offset="391" max-vertical-offset="1088">
-              <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#776#784#0" expanded="true" />
-                <element signature="e#1096#1097#0" expanded="true" />
-                <element signature="e#1124#1125#0" expanded="true" />
-                <element signature="e#1168#1169#0" expanded="true" />
-                <element signature="e#1204#1205#0" expanded="true" />
-                <element signature="e#1293#1294#0" expanded="true" />
-                <element signature="e#1318#1319#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.36690646" vertical-offset="1530" max-vertical-offset="2601">
+              <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1010,17 +957,17 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/utils/PasswordEncrypt.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_profil.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/ProfilActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_friends_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_friend.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/adapters/FriendsAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/FriendsListActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/models/Friend.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/FriendsListActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/RegisterActivity.java" />
       </list>
     </option>
   </component>
@@ -1442,7 +1389,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270869" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2197615" sideWeight="0.6164902" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2197615" sideWeight="0.6164902" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22390318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1504,8 +1451,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1496" max-vertical-offset="2159">
           <caret line="88" column="29" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
           <folding>
-            <element signature="e#2990#4417#0" expanded="false" />
-            <element signature="e#4398#4399#0" expanded="false" />
+            <element signature="e#3018#4718#0" expanded="false" />
+            <element signature="e#4699#4700#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1514,17 +1461,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1525" max-vertical-offset="2380">
           <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-          <folding>
-            <element signature="e#2737#2768#0" expanded="true" />
-            <element signature="e#3566#3592#0" expanded="true" />
-            <element signature="e#3778#3807#0" expanded="true" />
-            <element signature="e#4454#6352#0" expanded="true" />
-            <element signature="e#5349#5374#0" expanded="true" />
-            <element signature="e#5858#5881#0" expanded="true" />
-            <element signature="e#6057#6079#0" expanded="true" />
-            <element signature="e#6329#6330#0" expanded="true" />
-            <element signature="e#6519#6542#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1563,8 +1500,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1496" max-vertical-offset="2159">
           <caret line="88" column="29" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
           <folding>
-            <element signature="e#2990#4417#0" expanded="false" />
-            <element signature="e#4398#4399#0" expanded="false" />
+            <element signature="e#3018#4718#0" expanded="false" />
+            <element signature="e#4699#4700#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1573,17 +1510,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#2737#2768#0" expanded="true" />
-            <element signature="e#3566#3592#0" expanded="true" />
-            <element signature="e#3778#3807#0" expanded="true" />
-            <element signature="e#4454#6352#0" expanded="true" />
-            <element signature="e#5349#5374#0" expanded="true" />
-            <element signature="e#5858#5881#0" expanded="true" />
-            <element signature="e#6057#6079#0" expanded="true" />
-            <element signature="e#6329#6330#0" expanded="true" />
-            <element signature="e#6519#6542#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1622,8 +1549,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1496" max-vertical-offset="2686">
           <caret line="88" column="29" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
           <folding>
-            <element signature="e#2990#4417#0" expanded="false" />
-            <element signature="e#4398#4399#0" expanded="false" />
+            <element signature="e#3018#4718#0" expanded="false" />
+            <element signature="e#4699#4700#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1659,8 +1586,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1088" max-vertical-offset="2686">
           <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
           <folding>
-            <element signature="e#2990#4417#0" expanded="false" />
-            <element signature="e#4398#4399#0" expanded="false" />
+            <element signature="e#3018#4718#0" expanded="false" />
+            <element signature="e#4699#4700#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1696,8 +1623,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1088" max-vertical-offset="2686">
           <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
           <folding>
-            <element signature="e#2990#4417#0" expanded="false" />
-            <element signature="e#4398#4399#0" expanded="false" />
+            <element signature="e#3018#4718#0" expanded="false" />
+            <element signature="e#4699#4700#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1733,8 +1660,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="765">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
-            <element signature="e#2990#4417#0" expanded="false" />
-            <element signature="e#4398#4399#0" expanded="false" />
+            <element signature="e#3018#4718#0" expanded="false" />
+            <element signature="e#4699#4700#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1849,13 +1776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1020">
-          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -1885,42 +1805,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/RegisterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1836" max-vertical-offset="2567">
-          <caret line="136" column="63" selection-start-line="136" selection-start-column="37" selection-end-line="136" selection-end-column="63" />
-          <folding>
-            <element signature="e#2737#2768#0" expanded="true" />
-            <element signature="e#3566#3592#0" expanded="true" />
-            <element signature="e#3778#3807#0" expanded="true" />
-            <element signature="e#4454#6352#0" expanded="true" />
-            <element signature="e#5349#5374#0" expanded="true" />
-            <element signature="e#5858#5881#0" expanded="true" />
-            <element signature="e#6057#6079#0" expanded="true" />
-            <element signature="e#6329#6330#0" expanded="true" />
-            <element signature="e#6519#6542#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.8" vertical-offset="102" max-vertical-offset="646">
           <caret line="16" column="36" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/ProfilActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="726" max-vertical-offset="1309">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="e#2074#2101#0" expanded="true" />
-            <element signature="e#2265#2755#0" expanded="true" />
-            <element signature="e#2740#2741#0" expanded="true" />
-            <element signature="e#2845#2868#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1962,48 +1851,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="1819">
-          <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
-          <folding>
-            <element signature="e#2990#4417#0" expanded="false" />
-            <element signature="e#4398#4399#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-0.16306955" vertical-offset="1360" max-vertical-offset="1853">
+          <caret line="99" column="61" selection-start-line="99" selection-start-column="61" selection-end-line="99" selection-end-column="61" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/FriendsListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.785714" vertical-offset="835" max-vertical-offset="3570">
-          <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.529563" vertical-offset="2412" max-vertical-offset="3774">
+          <caret line="154" column="134" selection-start-line="154" selection-start-column="101" selection-end-line="154" selection-end-column="134" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1322#1349#0" expanded="true" />
-            <element signature="e#1852#4151#0" expanded="true" />
-            <element signature="e#2835#3208#0" expanded="true" />
-            <element signature="e#3177#3178#0" expanded="true" />
-            <element signature="e#3313#3348#0" expanded="true" />
-            <element signature="e#3519#3548#0" expanded="true" />
-            <element signature="e#3719#3744#0" expanded="true" />
-            <element signature="e#3912#3934#0" expanded="true" />
-            <element signature="e#4136#4137#0" expanded="true" />
-            <element signature="e#4226#4249#0" expanded="true" />
-            <element signature="e#5201#5228#0" expanded="true" />
-            <element signature="e#5952#8453#0" expanded="true" />
-            <element signature="e#7021#7422#0" expanded="true" />
-            <element signature="e#7387#7388#0" expanded="true" />
-            <element signature="e#7535#7570#0" expanded="true" />
-            <element signature="e#7757#7786#0" expanded="true" />
-            <element signature="e#7973#7998#0" expanded="true" />
-            <element signature="e#8186#8208#0" expanded="true" />
-            <element signature="e#8434#8435#0" expanded="true" />
-            <element signature="e#8540#8563#0" expanded="true" />
+            <element signature="e#1395#1422#0" expanded="true" />
+            <element signature="e#1925#4449#0" expanded="true" />
+            <element signature="e#3133#3506#0" expanded="true" />
+            <element signature="e#3475#3476#0" expanded="true" />
+            <element signature="e#3611#3646#0" expanded="true" />
+            <element signature="e#3817#3846#0" expanded="true" />
+            <element signature="e#4017#4042#0" expanded="true" />
+            <element signature="e#4210#4232#0" expanded="true" />
+            <element signature="e#4434#4435#0" expanded="true" />
+            <element signature="e#4524#4547#0" expanded="true" />
+            <element signature="e#5499#5526#0" expanded="true" />
+            <element signature="e#6250#9024#0" expanded="true" />
+            <element signature="e#7592#7993#0" expanded="true" />
+            <element signature="e#7958#7959#0" expanded="true" />
+            <element signature="e#8106#8141#0" expanded="true" />
+            <element signature="e#8328#8357#0" expanded="true" />
+            <element signature="e#8544#8569#0" expanded="true" />
+            <element signature="e#8757#8779#0" expanded="true" />
+            <element signature="e#9005#9006#0" expanded="true" />
+            <element signature="e#9111#9134#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/adapters/FriendsAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="556" max-vertical-offset="1088">
+        <state vertical-scroll-proportion="0.36744186" vertical-offset="556" max-vertical-offset="1088">
           <caret line="42" column="34" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -2013,8 +1899,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/models/Friend.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.07906977" vertical-offset="391" max-vertical-offset="1088">
-          <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.60465115" vertical-offset="352" max-vertical-offset="1088">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#776#784#0" expanded="true" />
@@ -2025,6 +1911,30 @@
             <element signature="e#1293#1294#0" expanded="true" />
             <element signature="e#1318#1319#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.73953485" vertical-offset="590" max-vertical-offset="1020">
+          <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/ProfilActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2139535" vertical-offset="828" max-vertical-offset="1258">
+          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pauphilet_romero/destagram/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36690646" vertical-offset="1530" max-vertical-offset="2601">
+          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
