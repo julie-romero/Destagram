@@ -1,17 +1,36 @@
 package com.pauphilet_romero.destagram;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import com.pauphilet_romero.destagram.R;
+import com.pauphilet_romero.destagram.utils.ConnectionDetector;
+import com.pauphilet_romero.destagram.utils.HttpRequest;
+import com.pauphilet_romero.destagram.utils.PasswordEncrypt;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ProfilActivity extends Activity {
+
+    public String token;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
+        // récupération de l'intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            token = intent.getStringExtra("token");
+        }
+
     }
 
 
@@ -32,5 +51,36 @@ public class ProfilActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void displayFriends(View view) {
+        // création de l'intent
+        final Intent intent2 = new Intent(getApplicationContext(), FriendsListActivity.class);
+        // on vérifie la connexion Internet
+        ConnectionDetector connection = new ConnectionDetector(getApplicationContext());
+        // création d'un toast pour afficher les erreurs
+        final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_empty_fields, Toast.LENGTH_SHORT);
+        if (connection.isConnectingToInternet()) {
+            // nouveau thread pour la requête HTTP
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // Requête http
+
+                            // on envoie le token à l'activité ContactsActivity
+                            intent2.putExtra("token",token);
+                            // changement d'activité
+                            startActivity(intent2);
+                            // sinon on affiche le toast avec le message d'erreur correspondant
+
+                }
+            });
+            thread.start();
+        }
+        else
+        {
+            toast.setText(R.string.error_internet);
+            toast.show();
+        }
     }
 }
