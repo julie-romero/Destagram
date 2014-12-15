@@ -30,6 +30,9 @@ public class FriendsListActivity extends Activity {
     // booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
     private ArrayList<Friend> pseudos;
+    private FriendsAdapter adapter;
+    // liste des amis
+    private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +42,7 @@ public class FriendsListActivity extends Activity {
         final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_empty_friend, Toast.LENGTH_SHORT);
         final Intent intent = getIntent();
         final String token = intent.getStringExtra("token");
-        // liste des amis
-        final ListView listView = (ListView) findViewById(R.id.listFriends);
+        listView = (ListView) findViewById(R.id.listFriends);
         // on vérifie la connexion Internet
         ConnectionDetector connection = new ConnectionDetector(getApplicationContext());
         if(connection.isConnectingToInternet()) {
@@ -66,14 +68,12 @@ public class FriendsListActivity extends Activity {
                             JSONArray jsonContacts = json.getJSONArray("friends");
                             final ArrayList<Friend> friends = Friend.fromJson(jsonContacts);
                             pseudos.addAll(friends);
-                            // crÃ©ation de l'adapter
-                            final FriendsAdapter adapter = new FriendsAdapter(getApplicationContext(), pseudos);
+                             adapter = new FriendsAdapter(getApplicationContext(), pseudos);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     // on lie l'adapter Ã  la ListView
                                     listView.setAdapter(adapter);
-                                    //adapter.add(newPseudo);
                                 }
                             });
 
@@ -163,19 +163,11 @@ public class FriendsListActivity extends Activity {
                             error = json.getBoolean("error");
                             // si il n'y a pas d'erreur
                             if (!error) {
-                                // crÃ©ation de l'adapter
-                                final FriendsAdapter adapter = new FriendsAdapter(getApplicationContext(), pseudos);
                                 JSONArray jsonContacts = json.getJSONArray("friend");
-                                final ArrayList<Friend> friend = Friend.fromJson(jsonContacts);
+                                ArrayList<Friend> friend = Friend.fromJson(jsonContacts);
                                 pseudos.addAll(friend);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // on lie l'adapter Ã  la ListView
-                                        listView.setAdapter(adapter);
-                                        //adapter.add(newPseudo);
-                                    }
-                                });
+                                adapter.addAll(friend);
+                                adapter.notifyDataSetChanged();
 
                             } else if(json.getInt("code")==1){
                                 toast.setText(R.string.error_not_existing_account);
@@ -200,7 +192,6 @@ public class FriendsListActivity extends Activity {
                     }
                 });
                 thread.start();
-
             } else {
                 toast.setText(R.string.error_internet);
                 toast.show();
