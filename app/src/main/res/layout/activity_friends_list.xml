@@ -8,17 +8,32 @@
 
     <TextView android:text="@string/ListeAmis" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listamis" />
-
+        android:id="@+id/listamis"
+        android:layout_marginBottom="5px"/>
+    <ListView
+        android:id="@+id/listFriends"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:choiceMode="singleChoice"
+        android:layout_below="@+id/listamis">
+    </ListView>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
-        android:id="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="18dp"
-        android:hint="Email ou pseudo" />
+        android:id="@+id/newFriendField"
+        android:hint="Email ou pseudo"
+        android:layout_alignBottom="@+id/addFriend"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ajouter"
+        android:id="@+id/addFriend"
+        android:layout_below="@+id/listFriends"
+        android:layout_toRightOf="@+id/newFriendField"
+        android:onClick="addFriend" />
 
 </RelativeLayout>

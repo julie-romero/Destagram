@@ -14,6 +14,10 @@
     <string name="field_email">Email</string>
     <string name="field_password">Mot de passe</string>
     <string name="error_empty_fields">Les champs doivent être renseignés.</string>
+    <string name="error_empty_friend">Veuillez entrer un pseudo ou un mot de passe.</string>
+    <string name="error_not_existing_account">Aucun compte ne correspond à cet email ou à ce pseudo.</string>
+    <string name="error_add_myself">WOLOLO.</string>
+    <string name="error_friend_in_list">Cette personne est déjà dans votre liste d\'amis.</string>
     <string name="error_confirm_password">Le mot de passe doit être confirmé.</string>
     <string name="existing_email">Un compte existe déjà pour cette adresse email.</string>
     <string name="error_wrong_email">Vous devez entrer une adresse email valide.</string>
@@ -23,5 +27,6 @@
     <string name="register_success">Félicitations ! Vous pouvez maintenant vous connecter sur Destagram.</string>
     <string name="title_activity_friends_list">FriendsList</string>
     <string name="ListeAmis">Liste d\'amis</string>
+    <string name="ajouter">Ajouter</string>
 
 </resources>

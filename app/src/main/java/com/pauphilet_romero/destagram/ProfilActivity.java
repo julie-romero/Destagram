@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.pauphilet_romero.destagram.R;
@@ -19,7 +20,6 @@ import org.json.JSONObject;
 public class ProfilActivity extends Activity {
 
     public String token;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
