@@ -11,9 +11,6 @@ import java.util.ArrayList;
  */
 public class Friend {
     private int id;
-
-
-
     private String pseudo;
 
     // Constructeur permettant de convertir un objet JSON en une instance Java

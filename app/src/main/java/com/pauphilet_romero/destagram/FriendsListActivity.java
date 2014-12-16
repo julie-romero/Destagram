@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -163,12 +164,14 @@ public class FriendsListActivity extends Activity {
                             error = json.getBoolean("error");
                             // si il n'y a pas d'erreur
                             if (!error) {
-                                JSONArray jsonContacts = json.getJSONArray("friend");
-                                ArrayList<Friend> friend = Friend.fromJson(jsonContacts);
-                                pseudos.addAll(friend);
-                                adapter.addAll(friend);
-                                adapter.notifyDataSetChanged();
-
+                                JSONObject jsonFriend = json.getJSONObject("friend");
+                                final Friend friend = new Friend(jsonFriend);
+                                //pseudos.add(friend);
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        adapter.add(friend);
+                                    }
+                                });
                             } else if(json.getInt("code")==1){
                                 toast.setText(R.string.error_not_existing_account);
                                 toast.show();
