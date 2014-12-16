@@ -28,7 +28,6 @@
     <string name="error_internet">Vous n\'êtes pas connecté à Internet.</string>
     <string name="register_success">Félicitations ! Vous pouvez maintenant vous connecter sur Destagram.</string>
     <string name="title_activity_friends_list">FriendsList</string>
-    <string name="ListeAmis">Liste d\'amis</string>
     <string name="ajouter">Ajouter</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
