@@ -33,6 +33,8 @@ public class RegisterActivity extends Activity {
     private EditText passwordField;
     // champ texte de la confirmation du mot de passe
     private EditText passwordConfirmField;
+    // champ texte du pseudo
+    private EditText pseudoField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class RegisterActivity extends Activity {
         emailField = (EditText) findViewById(R.id.emailField);
         passwordField = (EditText) findViewById(R.id.passwordField);
         passwordConfirmField = (EditText) findViewById(R.id.passwordConfirmField);
+        pseudoField = (EditText) findViewById(R.id.pseudoField);
     }
 
 
@@ -74,6 +77,8 @@ public class RegisterActivity extends Activity {
         final String password = passwordField.getText().toString();
         //récupération du mot de passe confirmé
         final String passwordConfirm = passwordConfirmField.getText().toString();
+        //récupération du pseudo
+        final String pseudo = pseudoField.getText().toString();
         // création de l'intent
         final Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         // création d'un toast pour afficher les erreurs
@@ -106,6 +111,11 @@ public class RegisterActivity extends Activity {
         //Si le mot de passe et la confirmation ne sont pas égaux
         else if(!password.equals(passwordConfirm)&&password!="")
             toast.show();
+        else if(pseudo == null || pseudo.equals(""))
+        {
+            toast.setText(R.string.error_empty_pseudo);
+            toast.show();
+        }
         else
         {
             // on vérifie la connexion Internet
@@ -123,12 +133,14 @@ public class RegisterActivity extends Activity {
                             // Requête http // Password provisoire
                             HttpRequest request = null;
                             try {
-                                request = new HttpRequest("http://destagram.zz.mu/register.php?login="+ URLEncoder.encode(email, "UTF-8") + "&password=" + URLEncoder.encode(password, "UTF-8"));
+                                request = new HttpRequest("http://destagram.zz.mu/register.php?login="+ URLEncoder.encode(email, "UTF-8")
+                                        + "&password="  + URLEncoder.encode(password, "UTF-8")
+                                        + "&pseudo="  + URLEncoder.encode(pseudo, "UTF-8"));
+
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
                             try {
-                                Log.d("lala", request.getResponse().toString());
                                 // on traduit la réponse en objet JSON
                                 JSONObject json = new JSONObject(request.getResponse());
 
@@ -144,6 +156,11 @@ public class RegisterActivity extends Activity {
                                 else if(json.getInt("code")==1)
                                 {
                                     toast.setText(R.string.existing_email);
+                                    toast.show();
+                                }
+                                else if(json.getInt("code")==2)
+                                {
+                                    toast.setText(R.string.error_existing_pseudo);
                                     toast.show();
                                 }
                                 else {

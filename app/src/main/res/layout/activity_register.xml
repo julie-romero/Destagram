@@ -39,14 +39,25 @@
         android:layout_below="@+id/passwordField"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp" />
-
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/pseudoField"
+        android:layout_below="@+id/passwordConfirmField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:hint="Pseudo" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="S'inscrire"
         android:id="@+id/registerButton"
-        android:layout_marginTop="68dp"
-        android:layout_below="@+id/passwordConfirmField"
-        android:layout_centerHorizontal="true"
-        android:onClick="register" />
+        android:layout_marginTop="45dp"
+        android:onClick="register"
+        android:layout_below="@+id/pseudoField"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

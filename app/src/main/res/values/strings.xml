@@ -14,7 +14,9 @@
     <string name="field_email">Email</string>
     <string name="field_password">Mot de passe</string>
     <string name="error_empty_fields">Les champs doivent être renseignés.</string>
-    <string name="error_empty_friend">Veuillez entrer un pseudo ou un mot de passe.</string>
+    <string name="error_empty_friend">Veuillez entrer un pseudo ou un email.</string>
+    <string name="error_empty_pseudo">Veuillez entrer un pseudo.</string>
+    <string name="error_existing_pseudo">Ce pseudo est déjà pris.</string>
     <string name="error_not_existing_account">Aucun compte ne correspond à cet email ou à ce pseudo.</string>
     <string name="error_add_myself">WOLOLO.</string>
     <string name="error_friend_in_list">Cette personne est déjà dans votre liste d\'amis.</string>
