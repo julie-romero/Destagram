@@ -3,21 +3,17 @@ package com.pauphilet_romero.destagram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.pauphilet_romero.destagram.R;
 import com.pauphilet_romero.destagram.adapters.FriendsAdapter;
 import com.pauphilet_romero.destagram.models.Friend;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
-import com.pauphilet_romero.destagram.utils.PasswordEncrypt;
 
 import org.json.JSONArray;
 import org.json.JSONException;

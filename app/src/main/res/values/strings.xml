@@ -30,5 +30,6 @@
     <string name="title_activity_friends_list">FriendsList</string>
     <string name="ListeAmis">Liste d\'amis</string>
     <string name="ajouter">Ajouter</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
