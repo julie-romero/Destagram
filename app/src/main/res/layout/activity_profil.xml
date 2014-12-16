@@ -3,13 +3,3 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 </android.support.v4.view.ViewPager>
-
-   <!-- <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Amis"
-        android:id="@+id/button"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="63dp"
-        android:onClick="displayFriends" /> -->

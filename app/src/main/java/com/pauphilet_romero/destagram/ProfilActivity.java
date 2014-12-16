@@ -9,29 +9,36 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.adapters.FriendsAdapter;
 import com.pauphilet_romero.destagram.adapters.TabsPagerAdapter;
+import com.pauphilet_romero.destagram.models.Friend;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
+import com.pauphilet_romero.destagram.utils.HttpRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class ProfilActivity extends FragmentActivity implements ActionBar.TabListener {
-
-    public String token;
 
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
 
+    // booléen déterminant si une erreur est apparue lors de la connexion
+    private Boolean error = true;
+    private FriendsAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
-
-        // récupération de l'intent
-        Intent intent = getIntent();
-        if (intent != null) {
-            token = intent.getStringExtra("token");
-        }
 
         // Initialisation pour les onglets
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -96,34 +103,79 @@ public class ProfilActivity extends FragmentActivity implements ActionBar.TabLis
         return super.onOptionsItemSelected(item);
     }
 
-    public void displayFriends(View view) {
-        // création de l'intent
-        final Intent intent2 = new Intent(getApplicationContext(), FriendsListActivity.class);
-        // on vérifie la connexion Internet
-        ConnectionDetector connection = new ConnectionDetector(getApplicationContext());
+    public void addFriend(View view)
+    {
         // création d'un toast pour afficher les erreurs
-        final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_empty_fields, Toast.LENGTH_SHORT);
-        if (connection.isConnectingToInternet()) {
-            // nouveau thread pour la requête HTTP
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // Requête http
+        final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_empty_friend, Toast.LENGTH_SHORT);
+        final Intent intent = getIntent();
+        final String token = intent.getStringExtra("token");
+        EditText usernameField = (EditText) findViewById(R.id.newFriendField);
+        final String username= usernameField.getText().toString();
+        // liste des amis
+        final ListView listView = (ListView) findViewById(R.id.listFriends);
+        if(username!= null && !username.equals("") ) {
+            // on vérifie la connexion Internet
+            ConnectionDetector connection = new ConnectionDetector(getApplicationContext());
+            if(connection.isConnectingToInternet()) {
+                // nouveau thread pour la requête HTTP
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                            // on envoie le token à l'activité ContactsActivity
-                            intent2.putExtra("token",token);
-                            // changement d'activité
-                            startActivity(intent2);
-                            // sinon on affiche le toast avec le message d'erreur correspondant
+                        // Requête http
+                        HttpRequest request = null;
+                        try {
+                            request = new HttpRequest("http://destagram.zz.mu/add_friend.php?token="+ URLEncoder.encode(token, "UTF-8")+"&username="+ URLEncoder.encode(username, "UTF-8"));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            // on traduit la réponse en objet JSON
+                            JSONObject json = new JSONObject(request.getResponse());
 
-                }
-            });
-            thread.start();
+                            error = json.getBoolean("error");
+                            // si il n'y a pas d'erreur
+                            if (!error) {
+                                JSONObject jsonFriend = json.getJSONObject("friend");
+                                final Friend friend = new Friend(jsonFriend);
+                                //pseudos.add(friend);
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        adapter.add(friend);
+                                    }
+                                });
+                            } else if(json.getInt("code")==1){
+                                toast.setText(R.string.error_not_existing_account);
+                                toast.show();
+                            }
+                            else if(json.getInt("code")==2) {
+                                toast.setText(R.string.error_friend_in_list);
+                                toast.show();
+                            }
+                            else if(json.getInt("code")==3) {
+                                toast.setText(R.string.error_add_myself);
+                                toast.show();
+                            }
+                            else
+                            {
+                                toast.setText(R.string.error_connect);
+                                toast.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+            } else {
+                toast.setText(R.string.error_internet);
+                toast.show();
+            }
         }
-        else
-        {
-            toast.setText(R.string.error_internet);
+        else {
+
             toast.show();
         }
+
     }
 }
