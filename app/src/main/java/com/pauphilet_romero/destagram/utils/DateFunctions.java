@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * Fonctions spécifiques aux dates
  * Created by Jimmy on 25/11/2014.
  */
 public class DateFunctions {
+
     /**
      * Affichage de la date
      * @param date
@@ -27,7 +29,12 @@ public class DateFunctions {
         }
     }
 
-    public static Date dateConvert(String date) {// Conversion de la date de String à Date
+    /***
+     * Conversion de la date de String à Date
+     * @param date
+     * @return
+     */
+    public static Date dateConvert(String date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             return formatter.parse(date);

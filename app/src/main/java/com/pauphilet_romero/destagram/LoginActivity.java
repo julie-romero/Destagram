@@ -18,7 +18,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-
+/**
+ * Activité de connexion à l'application
+ */
 public class LoginActivity extends Activity {
 
     // booléen déterminant si une erreur est apparue lors de la connexion
@@ -65,7 +67,7 @@ public class LoginActivity extends Activity {
         // récupération du mot de passe
         final String password = passwordField.getText().toString();
         // création de l'intent
-        final Intent intent = new Intent(getApplicationContext(), ProfilActivity.class);
+        final Intent intent = new Intent(getApplicationContext(), MainTabsActivity.class);
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_empty_fields, Toast.LENGTH_SHORT);
 

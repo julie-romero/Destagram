@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class ProfilActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainTabsActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
@@ -38,7 +38,7 @@ public class ProfilActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profil);
+        setContentView(R.layout.activity_main_tabs);
 
         // Initialisation pour les onglets
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -111,8 +111,7 @@ public class ProfilActivity extends FragmentActivity implements ActionBar.TabLis
         final String token = intent.getStringExtra("token");
         EditText usernameField = (EditText) findViewById(R.id.newFriendField);
         final String username= usernameField.getText().toString();
-        // liste des amis
-        final ListView listView = (ListView) findViewById(R.id.listFriends);
+
         if(username!= null && !username.equals("") ) {
             // on vérifie la connexion Internet
             ConnectionDetector connection = new ConnectionDetector(getApplicationContext());
@@ -138,7 +137,6 @@ public class ProfilActivity extends FragmentActivity implements ActionBar.TabLis
                             if (!error) {
                                 JSONObject jsonFriend = json.getJSONObject("friend");
                                 final Friend friend = new Friend(jsonFriend);
-                                //pseudos.add(friend);
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         adapter.add(friend);
@@ -173,7 +171,6 @@ public class ProfilActivity extends FragmentActivity implements ActionBar.TabLis
             }
         }
         else {
-
             toast.show();
         }
 

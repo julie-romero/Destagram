@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
+ * Classe qui étend ImageView afin d'avoir un rendu carré des miniatures des médias
  * Created by Jimmy on 16/12/2014.
  */
 public class SquareImageView extends ImageView

@@ -13,11 +13,18 @@ import com.pauphilet_romero.destagram.MediaFragment;
  */
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
+    /**
+     * Constructeur de TabsPagerAdapter
+     * @param fm
+     */
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
+    /**
+     * Retourne le fragment correspondant à son onglet
+     */
     public Fragment getItem(int index) {
 
         switch (index) {
@@ -36,9 +43,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    /**
+     * Retourne le nombre d'onglets
+     */
     public int getCount() {
-        // retourne le nombre d'onglets
         return 3;
     }
-
 }

@@ -54,6 +54,7 @@ public class MediasAdapter extends ArrayAdapter<Media> {
             viewHolder.titre = (TextView) convertView.findViewById(R.id.mediaTitle);
             viewHolder.picture = (ImageView) convertView.findViewById(R.id.picture);
             convertView.setTag(viewHolder);
+
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

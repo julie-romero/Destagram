@@ -7,13 +7,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
+ * Modèle de Friend
  * Created by Julie on 15/12/2014.
  */
 public class Friend {
+
     private int id;
     private String pseudo;
 
-    // Constructeur permettant de convertir un objet JSON en une instance Java
+    /***
+     * Constructeur permettant de convertir un objet JSON en une instance Java
+     * @param object
+     */
     public Friend(JSONObject object){
         try {
             this.id = object.getInt("id");
@@ -23,7 +28,11 @@ public class Friend {
         }
     }
 
-    // Conversion d'un tableau d'objets JSON en liste d'objets
+    /***
+     * Conversion d'un tableau d'objets JSON en liste d'objets
+     * @param jsonObjects
+     * @return
+     */
     public static ArrayList<Friend> fromJson(JSONArray jsonObjects) {
         ArrayList<Friend> friends = new ArrayList<Friend>();
         for (int i = 0; i < jsonObjects.length(); i++) {

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
+ * Requête HTTP
  * Created by Jimmy on 25/11/2014.
  */
 public class HttpRequest {
@@ -18,7 +19,7 @@ public class HttpRequest {
     private String response = "";
 
     /**
-     * Requête HTTP
+     * Constructeur
      * @param
      */
     public HttpRequest(String url) {

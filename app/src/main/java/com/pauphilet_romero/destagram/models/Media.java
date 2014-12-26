@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ *
  * Created by Jimmy on 16/12/2014.
  */
 public class Media {
@@ -22,7 +23,10 @@ public class Media {
     private int user_id;
     private Date date;
 
-    // Constructeur permettant de convertir un objet JSON en une instance Java
+    /***
+     * Constructeur permettant de convertir un objet JSON en une instance Java
+     * @param object
+     */
     public Media(JSONObject object){
         try {
             this.id = object.getInt("id");
@@ -37,7 +41,11 @@ public class Media {
         }
     }
 
-    // Conversion d'un tableau d'objets JSON en liste d'objets
+    /***
+     * Conversion d'un tableau d'objets JSON en liste d'objets
+     * @param jsonObjects
+     * @return
+     */
     public static ArrayList<Media> fromJson(JSONArray jsonObjects) {
         ArrayList<Media> friends = new ArrayList<Media>();
         for (int i = 0; i < jsonObjects.length(); i++) {

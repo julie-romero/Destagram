@@ -6,9 +6,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 
 /**
+ * Encrypte le mot de passe
  * Created by Julie on 04/12/2014.
  */
 public class PasswordEncrypt {
+
+    /***
+     *
+     * @param password
+     * @return
+     */
     public static String encryptPassword(String password)
     {
         String sha1 = "";
@@ -30,6 +37,11 @@ public class PasswordEncrypt {
         return sha1;
     }
 
+    /***
+     * Converstion byteToHex
+     * @param hash
+     * @return
+     */
     private static String byteToHex(final byte[] hash)
     {
         Formatter formatter = new Formatter();

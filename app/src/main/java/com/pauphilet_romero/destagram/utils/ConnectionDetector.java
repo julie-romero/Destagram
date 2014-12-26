@@ -4,14 +4,25 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+/**
+ * Classe permettant de détecter la connexion Internet de l'appareil
+ */
 public class ConnectionDetector {
 
     private Context _context;
 
+    /***
+     * Constructeur
+     * @param context
+     */
     public ConnectionDetector(Context context){
         this._context = context;
     }
 
+    /***
+     * Détermine si l'appareil est connecté à Internet
+     * @return boolean
+     */
     public boolean isConnectingToInternet(){
         ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null)

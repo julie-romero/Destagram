@@ -23,6 +23,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+/**
+ * Fragment pour l'onglet "Amis"
+ */
 public class FriendsFragment extends Fragment {
 
     // booléen déterminant si une erreur est apparue lors de la connexion

@@ -20,7 +20,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
-
+/**
+ * Activité d'inscription
+ */
 public class RegisterActivity extends Activity {
 
     // booléen déterminant si une erreur est apparue lors de l'inscription

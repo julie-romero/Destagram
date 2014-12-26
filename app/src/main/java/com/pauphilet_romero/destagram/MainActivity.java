@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-
+/**
+ * Activité principale des onglets "Amis / Home / Ajout de Media"
+ */
 public class MainActivity extends Activity {
 
     @Override

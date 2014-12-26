@@ -9,15 +9,25 @@ import android.widget.ImageView;
 import java.io.InputStream;
 
 /**
+ * Permet de charger une image récupérée sur Internet de manière asynchrone
  * Created by Jimmy on 16/12/2014.
  */
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     ImageView bmImage;
 
+    /***
+     * Constructeur
+     * @param bmImage
+     */
     public DownloadImageTask(ImageView bmImage) {
         this.bmImage = bmImage;
     }
 
+    /***
+     * Récupération de l'image
+     * @param urls
+     * @return
+     */
     protected Bitmap doInBackground(String... urls) {
         String urldisplay = urls[0];
         Bitmap mIcon11 = null;
@@ -31,6 +41,10 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         return mIcon11;
     }
 
+    /***
+     * Attribution de l'image à l'ImageView
+     * @param result
+     */
     protected void onPostExecute(Bitmap result) {
         bmImage.setImageBitmap(result);
     }

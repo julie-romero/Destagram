@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class FriendsAdapter extends ArrayAdapter<Friend> {
     /**
-     * Cache permettant d'amÃ©liorer les performances lors de l'affichage sur la vue
+     * Cache permettant d'améliorer les performances lors de l'affichage sur la vue
      */
     private static class ViewHolder {
         TextView pseudo;
@@ -34,11 +34,11 @@ public class FriendsAdapter extends ArrayAdapter<Friend> {
 
     @Override
     /**
-     * Retourne la vue Ã  l'Ã©cran
+     * Retourne la vue à l'écran
      */
     public View getView(int position, View convertView, ViewGroup parent) {
         Friend friend = getItem(position);
-        // vÃ©rifie si une vue existante est utilisÃ©e
+        // vérifie si une vue existante est utilisée
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -49,10 +49,10 @@ public class FriendsAdapter extends ArrayAdapter<Friend> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        // attribue les donnÃ©es de l'objet aux Ã©lÃ©ments de la vue
+        // attribue les données de l'objet aux éléments de la vue
         viewHolder.pseudo.setText(friend.getPseudo());
 
-        // retourne la vue Ã  l'Ã©cran
+        // retourne la vue à l'écran
         return convertView;
     }
 }

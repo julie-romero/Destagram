@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Onglet "Ajout de média"
+ */
 public class MediaFragment extends Fragment {
 
     @Override

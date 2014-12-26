@@ -23,19 +23,24 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ProfilActivity"
+            android:name=".MainTabsActivity"
             android:label="@string/title_activity_profil" >
+            <!-- To support below API Level 14 -->
+            <meta-data android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
         </activity>
         <activity
-            android:name=".FriendsListActivity"
-            android:label="@string/title_activity_friends_list" >
+            android:name=".MediaActivity"
+            android:label="@string/title_activity_media" >
         </activity>
     </application>
 
