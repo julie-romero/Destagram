@@ -9,7 +9,7 @@
     <string name="button_register">S\'inscrire</string>
     <string name="title_activity_login">Connexion</string>
     <string name="title_activity_register">Inscription</string>
-    <string name="title_activity_profil">Profil</string>
+    <string name="title_activity_profil">Menu principal</string>
     <string name="hello_world">Hello world!</string>
     <string name="field_email">Email</string>
     <string name="field_password">Mot de passe</string>
@@ -26,6 +26,7 @@
     <string name="error_wrong_password">Le mot de passe doit contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, entre 6 et 20 carac.</string>
     <string name="error_connect">L\'email ou le mot de passe est incorrect.</string>
     <string name="error_internet">Vous n\'êtes pas connecté à Internet.</string>
+    <string name="error_general">Une erreur est survenue. Votre appareil va exploser.</string>
     <string name="register_success">Félicitations ! Vous pouvez maintenant vous connecter sur Destagram.</string>
     <string name="title_activity_friends_list">FriendsList</string>
     <string name="ajouter">Ajouter</string>

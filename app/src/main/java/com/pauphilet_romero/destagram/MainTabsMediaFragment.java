@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 /**
  * Onglet "Ajout de média"
  */
-public class MediaFragment extends Fragment {
+public class MainTabsMediaFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_media, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_tabs_media, container, false);
 
         return rootView;
     }

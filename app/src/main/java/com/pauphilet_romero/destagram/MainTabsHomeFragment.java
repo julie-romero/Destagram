@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Fragment pour l'onglet "Home"
  */
-public class HomeFragment extends Fragment {
+public class MainTabsHomeFragment extends Fragment {
 
     // booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
@@ -36,9 +36,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
-        gridView = (GridView) rootView.findViewById(R.id.listMedias);
+        View rootView = inflater.inflate(R.layout.fragment_main_tabs_home, container, false);
 
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
@@ -74,7 +72,7 @@ public class HomeFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                            // on lie l'adapter à la ListView
+                            // on lie l'adapter à la gridView
                             gridView.setAdapter(adapter);
 
                             // au clic sur un média, on lance la MediaActivity correspondante
@@ -84,7 +82,7 @@ public class HomeFragment extends Fragment {
                                 Media media = (Media) gridView.getItemAtPosition(position);
 
                                 // On instancie l'intent
-                                Intent intent = new Intent(getActivity(), MediaActivity.class);
+                                Intent intent = new Intent(getActivity(), MediaTabsActivity.class);
                                 // On y place les données souhaitées
                                 intent.putExtra("mediaId", media.getId());
                                 intent.putExtra("mediaTitle", media.getTitre());
@@ -99,7 +97,7 @@ public class HomeFragment extends Fragment {
                     }
                     else
                     {
-                        toast.setText(R.string.error_connect);
+                        toast.setText(R.string.error_general);
                         toast.show();
                     }
                 } catch (JSONException e) {

@@ -10,11 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pauphilet_romero.destagram.adapters.FriendsAdapter;
-import com.pauphilet_romero.destagram.adapters.TabsPagerAdapter;
+import com.pauphilet_romero.destagram.adapters.MainTabsPagerAdapter;
 import com.pauphilet_romero.destagram.models.Friend;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
@@ -25,10 +24,13 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+/**
+ * Activité gérant les onglets "home - ajouter un média - amis"
+ */
 public class MainTabsActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private ViewPager viewPager;
-    private TabsPagerAdapter mAdapter;
+    private MainTabsPagerAdapter mAdapter;
     private ActionBar actionBar;
 
     // booléen déterminant si une erreur est apparue lors de la connexion
@@ -43,7 +45,7 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
         // Initialisation pour les onglets
         viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+        mAdapter = new MainTabsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
         actionBar.setHomeButtonEnabled(false);

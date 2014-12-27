@@ -24,7 +24,7 @@ public class DateFunctions {
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
             return formatter.format(date);
         } else {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/y - HH:mm");
             return formatter.format(date);
         }
     }

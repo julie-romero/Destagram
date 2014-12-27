@@ -47,15 +47,15 @@ public class Media {
      * @return
      */
     public static ArrayList<Media> fromJson(JSONArray jsonObjects) {
-        ArrayList<Media> friends = new ArrayList<Media>();
+        ArrayList<Media> medias = new ArrayList<Media>();
         for (int i = 0; i < jsonObjects.length(); i++) {
             try {
-                friends.add(new Media(jsonObjects.getJSONObject(i)));
+                medias.add(new Media(jsonObjects.getJSONObject(i)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        return friends;
+        return medias;
     }
 
     public String getName() {

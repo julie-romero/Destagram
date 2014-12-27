@@ -4,20 +4,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.pauphilet_romero.destagram.FriendsFragment;
-import com.pauphilet_romero.destagram.HomeFragment;
-import com.pauphilet_romero.destagram.MediaFragment;
+import com.pauphilet_romero.destagram.MainTabsFriendsFragment;
+import com.pauphilet_romero.destagram.MainTabsHomeFragment;
+import com.pauphilet_romero.destagram.MainTabsMediaFragment;
+import com.pauphilet_romero.destagram.MediaTabsCommentFragment;
+import com.pauphilet_romero.destagram.MediaTabsMediaFragment;
 
 /**
  * Created by Jimmy on 16/12/2014.
  */
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+public class MediaTabsPagerAdapter extends FragmentPagerAdapter {
 
     /**
      * Constructeur de TabsPagerAdapter
      * @param fm
      */
-    public TabsPagerAdapter(FragmentManager fm) {
+    public MediaTabsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -30,13 +32,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 // Media fragment activity
-                return new MediaFragment();
+                return new MediaTabsMediaFragment();
             case 1:
-                // Friends fragment activity
-                return new HomeFragment();
-            case 2:
-                // Home fragment activity
-                return new FriendsFragment();
+                // Comment fragment activity
+                return new MediaTabsCommentFragment();
         }
 
         return null;
@@ -47,6 +46,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
      * Retourne le nombre d'onglets
      */
     public int getCount() {
-        return 3;
+        return 2;
     }
 }

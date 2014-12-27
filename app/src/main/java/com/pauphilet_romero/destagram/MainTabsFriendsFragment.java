@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Fragment pour l'onglet "Amis"
  */
-public class FriendsFragment extends Fragment {
+public class MainTabsFriendsFragment extends Fragment {
 
     // booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
@@ -38,7 +37,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_tabs_friends, container, false);
 
         pseudos = new ArrayList<Friend>();
         // création d'un toast pour afficher les erreurs
@@ -94,7 +93,7 @@ public class FriendsFragment extends Fragment {
                     }
                     else
                     {
-                        toast.setText(R.string.error_connect);
+                        toast.setText(R.string.error_general);
                         toast.show();
                     }
                 } catch (JSONException e) {
