@@ -44,7 +44,11 @@ public class ProfileActivity extends Activity {
         gridView = (GridView) findViewById(R.id.listMedias);
 
         // On change dynamiquement le titre de la vue selon le média
-        setTitle("Profil de " + intent.getStringExtra("userPseudo"));
+        if (intent.getStringExtra("userPseudo") == null) {
+            setTitle("Vos médias");
+        } else {
+            setTitle("Médias de " + intent.getStringExtra("userPseudo"));
+        }
 
         // on vérifie la connexion Internet
         ConnectionDetector connection = new ConnectionDetector(getApplicationContext());

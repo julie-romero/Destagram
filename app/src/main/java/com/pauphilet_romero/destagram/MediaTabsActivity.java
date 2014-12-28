@@ -2,6 +2,7 @@ package com.pauphilet_romero.destagram;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -80,8 +81,12 @@ public class MediaTabsActivity extends FragmentActivity implements ActionBar.Tab
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.myProfile) {
+            Intent oldIntent = getIntent();
+            String token = oldIntent.getStringExtra("token");
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            intent.putExtra("token", token);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

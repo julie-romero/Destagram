@@ -99,8 +99,12 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.myProfile) {
+            Intent oldIntent = getIntent();
+            String token = oldIntent.getStringExtra("token");
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            intent.putExtra("token", token);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
