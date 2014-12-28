@@ -34,5 +34,6 @@
     <string name="title_activity_media">MediaActivity</string>
     <string name="like">J\'aime</string>
     <string name="dislike">Je n\'aime plus</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

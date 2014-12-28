@@ -39,6 +39,10 @@
             android:name=".MediaTabsActivity"
             android:label="@string/title_activity_media" >
         </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
     </application>
 
 </manifest>

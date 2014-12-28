@@ -1,17 +1,16 @@
 package com.pauphilet_romero.destagram;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.Toast;
 
-import com.pauphilet_romero.destagram.adapters.FriendsAdapter;
-import com.pauphilet_romero.destagram.models.Friend;
+import com.pauphilet_romero.destagram.adapters.MediasAdapter;
 import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
@@ -24,30 +23,31 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-/**
- * Fragment pour l'onglet "Amis"
- */
-public class MainTabsFriendsFragment extends Fragment {
+
+public class ProfileActivity extends Activity {
 
     // booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
-    private ArrayList<Friend> pseudos;
-    private FriendsAdapter adapter;
-    private ListView listView;
+    private MediasAdapter adapter;
+    private GridView gridView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
-        View rootView = inflater.inflate(R.layout.fragment_main_tabs_friends, container, false);
-
-        pseudos = new ArrayList<Friend>();
         // création d'un toast pour afficher les erreurs
-        final Toast toast = Toast.makeText(getActivity(), R.string.error_empty_friend, Toast.LENGTH_SHORT);
-        final Intent intent = getActivity().getIntent();
+        final Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
+        final Intent intent = getIntent();
         final String token = intent.getStringExtra("token");
-        listView = (ListView) rootView.findViewById(R.id.listFriends);
+        final int userId = intent.getIntExtra("userId", 0);
+        gridView = (GridView) findViewById(R.id.listMedias);
+
+        // On change dynamiquement le titre de la vue selon le média
+        setTitle("Profil de " + intent.getStringExtra("userPseudo"));
+
         // on vérifie la connexion Internet
-        ConnectionDetector connection = new ConnectionDetector(getActivity());
+        ConnectionDetector connection = new ConnectionDetector(getApplicationContext());
         if(connection.isConnectingToInternet()) {
             // nouveau thread pour la requête HTTP
             Thread thread = new Thread(new Runnable() {
@@ -57,7 +57,8 @@ public class MainTabsFriendsFragment extends Fragment {
                     // Requête http
                     HttpRequest request = null;
                     try {
-                        request = new HttpRequest("http://destagram.zz.mu/friends.php?token="+ URLEncoder.encode(token, "UTF-8"));
+                        request = new HttpRequest("http://destagram.zz.mu/medias.php?token="+ URLEncoder.encode(token, "UTF-8")
+                            + "&id=" + userId);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -68,47 +69,35 @@ public class MainTabsFriendsFragment extends Fragment {
                         error = json.getBoolean("error");
                         // si il n'y a pas d'erreur
                         if (!error) {
-                            JSONArray jsonContacts = json.getJSONArray("friends");
-                            final ArrayList<Friend> friends = Friend.fromJson(jsonContacts);
-                            pseudos.addAll(friends);
-                            adapter = new FriendsAdapter(getActivity(), pseudos);
-                            getActivity().runOnUiThread(new Runnable() {
+                            JSONArray jsonMedias = json.getJSONArray("medias");
+                            final ArrayList<Media> medias = Media.fromJson(jsonMedias);
+
+                            adapter = new MediasAdapter(getApplicationContext(), medias);
+                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // on lie l'adapter Ã  la ListView
-                                    listView.setAdapter(adapter);
+                                    // on lie l'adapter à la gridView
+                                    gridView.setAdapter(adapter);
 
                                     // au clic sur un média, on lance la MediaActivity correspondante
-                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                                             // on récupère le média sélectionné
-                                            Friend friend = (Friend) listView.getItemAtPosition(position);
+                                            Media media = (Media) gridView.getItemAtPosition(position);
 
                                             // On instancie l'intent
-                                            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                                            Intent intent = new Intent(getApplicationContext(), MediaTabsActivity.class);
                                             // On y place les données souhaitées
-                                            intent.putExtra("userId", friend.getId());
-                                            intent.putExtra("userPseudo", friend.getPseudo());
+                                            intent.putExtra("mediaId", media.getId());
+                                            intent.putExtra("mediaTitle", media.getTitre());
                                             intent.putExtra("token", token);
 
                                             // On démarre la nouvelle activité
-                                            getActivity().startActivity(intent);
+                                            startActivity(intent);
                                         }
                                     });
                                 }
                             });
-
-                        } else if(json.getInt("code")==1){
-                            toast.setText(R.string.error_not_existing_account);
-                            toast.show();
-                        }
-                        else if(json.getInt("code")==2) {
-                            toast.setText(R.string.error_friend_in_list);
-                            toast.show();
-                        }
-                        else if(json.getInt("code")==3) {
-                            toast.setText(R.string.error_add_myself);
-                            toast.show();
                         }
                         else
                         {
@@ -126,8 +115,28 @@ public class MainTabsFriendsFragment extends Fragment {
             toast.setText(R.string.error_internet);
             toast.show();
         }
-
-        return rootView;
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

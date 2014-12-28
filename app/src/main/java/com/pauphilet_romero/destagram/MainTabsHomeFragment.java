@@ -54,7 +54,7 @@ public class MainTabsHomeFragment extends Fragment {
                     // Requête http
                     HttpRequest request = null;
                     try {
-                        request = new HttpRequest("http://destagram.zz.mu/medias.php?token="+ URLEncoder.encode(token, "UTF-8"));
+                        request = new HttpRequest("http://destagram.zz.mu/wall.php?token="+ URLEncoder.encode(token, "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
