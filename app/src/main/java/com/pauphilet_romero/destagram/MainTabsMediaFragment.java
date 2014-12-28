@@ -66,9 +66,9 @@ public class MainTabsMediaFragment extends Fragment implements View.OnClickListe
     }
 
     private void takePhoto() {
-//		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-//		intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-//		startActivityForResult(intent, 0);
+		//Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		//intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+	    //startActivityForResult(intent, 0);
         dispatchTakePictureIntent();
     }
 
@@ -78,16 +78,16 @@ public class MainTabsMediaFragment extends Fragment implements View.OnClickListe
         Log.i(TAG, "onActivityResult: " + this);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
             setPic();
-//			Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-//			if (bitmap != null) {
-//				mImageView.setImageBitmap(bitmap);
-//				try {
-//					sendPhoto(bitmap);
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
+			Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+			if (bitmap != null) {
+				mImageView.setImageBitmap(bitmap);
+				try {
+					sendPhoto(bitmap);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
         }
     }
 
@@ -176,7 +176,7 @@ public class MainTabsMediaFragment extends Fragment implements View.OnClickListe
 
     String mCurrentPhotoPath;
 
-    static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_TAKE_PHOTO = 2;
     File photoFile = null;
 
     private void dispatchTakePictureIntent() {
