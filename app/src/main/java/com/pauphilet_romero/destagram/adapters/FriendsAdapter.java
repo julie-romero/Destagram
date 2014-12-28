@@ -13,6 +13,7 @@ import com.pauphilet_romero.destagram.models.Friend;
 import java.util.ArrayList;
 
 /**
+ * Adapter pour les amis
  * Created by Julie on 15/12/2014.
  */
 public class FriendsAdapter extends ArrayAdapter<Friend> {
@@ -26,7 +27,7 @@ public class FriendsAdapter extends ArrayAdapter<Friend> {
     /**
      * Constructeur de l'adapter
      * @param context
-     * @param friends Liste des contacts
+     * @param friends Liste des amis
      */
     public FriendsAdapter(Context context, ArrayList<Friend> friends) {
         super(context, 0, friends);

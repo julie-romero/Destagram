@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 /**
- * Activité principale des onglets "Amis / Home / Ajout de Media"
+ * Activité principale proposant l'inscription ou la connexion
  */
 public class MainActivity extends Activity {
 
@@ -35,7 +35,6 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

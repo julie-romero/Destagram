@@ -9,12 +9,13 @@ import com.pauphilet_romero.destagram.MainTabsHomeFragment;
 import com.pauphilet_romero.destagram.MainTabsMediaFragment;
 
 /**
+ * PagerAdapter pour les onglets de l'activité MainTabsActivity
  * Created by Jimmy on 16/12/2014.
  */
 public class MainTabsPagerAdapter extends FragmentPagerAdapter {
 
     /**
-     * Constructeur de TabsPagerAdapter
+     * Constructeur de MainTabsPagerAdapter
      * @param fm
      */
     public MainTabsPagerAdapter(FragmentManager fm) {
@@ -29,13 +30,13 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
 
         switch (index) {
             case 0:
-                // Media fragment activity
+                // Fragment gérant l'upload de média
                 return new MainTabsMediaFragment();
             case 1:
-                // Friends fragment activity
+                // Fragment listant les nouveaux médias des amis
                 return new MainTabsHomeFragment();
             case 2:
-                // Home fragment activity
+                // Fragment gérant les amis
                 return new MainTabsFriendsFragment();
         }
 

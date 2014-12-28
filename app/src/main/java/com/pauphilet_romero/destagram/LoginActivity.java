@@ -61,6 +61,11 @@ public class LoginActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Connexion à l'application
+     * @param view
+     */
     public void login(View view) {
         // récupération de l'email
         final String email = emailField.getText().toString();

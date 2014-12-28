@@ -11,12 +11,13 @@ import com.pauphilet_romero.destagram.MediaTabsCommentFragment;
 import com.pauphilet_romero.destagram.MediaTabsMediaFragment;
 
 /**
+ * PagerAdapter pour les onglets de l'activité MediaTabsActivity
  * Created by Jimmy on 16/12/2014.
  */
 public class MediaTabsPagerAdapter extends FragmentPagerAdapter {
 
     /**
-     * Constructeur de TabsPagerAdapter
+     * Constructeur de MediaTabsPagerAdapter
      * @param fm
      */
     public MediaTabsPagerAdapter(FragmentManager fm) {
@@ -31,10 +32,10 @@ public class MediaTabsPagerAdapter extends FragmentPagerAdapter {
 
         switch (index) {
             case 0:
-                // Media fragment activity
+                // Fragment gérant les informations du média
                 return new MediaTabsMediaFragment();
             case 1:
-                // Comment fragment activity
+                // Fragment gérant les commentaires du média
                 return new MediaTabsCommentFragment();
         }
 

@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +30,7 @@ import java.net.URLEncoder;
  */
 public class MediaTabsMediaFragment extends Fragment {
 
-    // booléen déterminant si une erreur est apparue lors de la connexion
+    // Booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
 
     @Override
@@ -38,7 +40,7 @@ public class MediaTabsMediaFragment extends Fragment {
 
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
-        // On récupère l'ID du média via l'intent
+        // On récupère l'ID du média et le token de connexion via l'intent
         Intent intent = getActivity().getIntent();
         final String token = intent.getStringExtra("token");
         final Integer mediaId = intent.getIntExtra("mediaId", 0);
@@ -53,7 +55,6 @@ public class MediaTabsMediaFragment extends Fragment {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-
                     // Requête http
                     HttpRequest request = null;
                     try {
@@ -72,12 +73,16 @@ public class MediaTabsMediaFragment extends Fragment {
                             JSONObject jsonMedia = json.getJSONObject("media");
                             final Media media = new Media(jsonMedia);
                             final String mediaUsername = json.getJSONObject("author").getString("username");
+                            final String nbLikes = json.getInt("likes")+"";
+                            final boolean isLike = json.getBoolean("isLike");
 
                             // composants affichant les informations textuelles
                             final TextView mediaTitle = (TextView) getActivity().findViewById(R.id.mediaTitle);
                             final TextView mediaUser = (TextView) getActivity().findViewById(R.id.mediaUser);
                             final TextView mediaDate = (TextView) getActivity().findViewById(R.id.mediaDate);
                             final TextView mediaDescription = (TextView) getActivity().findViewById(R.id.mediaDescription);
+                            final TextView mediaNbLikes = (TextView) getActivity().findViewById(R.id.mediaNbLikes);
+                            final Button buttonLike = (Button) getActivity().findViewById(R.id.mediaLike);
 
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -87,6 +92,38 @@ public class MediaTabsMediaFragment extends Fragment {
                                     mediaUser.setText(mediaUsername);
                                     mediaDate.setText(DateFunctions.diffDate(media.getDate()));
                                     mediaDescription.setText(media.getDescription());
+                                    mediaNbLikes.setText(nbLikes);
+
+                                    if (isLike) {
+                                        buttonLike.setText(R.string.dislike);
+                                    } else {
+                                        buttonLike.setText(R.string.like);
+                                    }
+                                }
+                            });
+
+                            // évènement sur clic sur le bouton like
+                            buttonLike.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Thread thread = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                new HttpRequest("http://destagram.zz.mu/like.php" +
+                                                        "?token=" + URLEncoder.encode(token, "UTF-8")
+                                                        + "&id=" + mediaId
+                                                        + "&like=" + !isLike);
+                                            } catch (UnsupportedEncodingException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            getActivity().finish();
+                                            startActivity(getActivity().getIntent());
+                                        }
+                                    });
+                                    thread.start();
                                 }
                             });
 

@@ -15,6 +15,7 @@ import com.pauphilet_romero.destagram.utils.DownloadImageTask;
 import java.util.ArrayList;
 
 /**
+ * Adapter pour les médias
  * Created by Jimmy on 16/12/2014.
  */
 public class MediasAdapter extends ArrayAdapter<Media> {

@@ -11,35 +11,37 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/commentMessage"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="false"
-            android:background="#c80c0207"
-            android:layout_toLeftOf="@+id/button"
-            android:layout_alignTop="@+id/button"
+            android:background="#eb0c0207"
+            android:layout_toLeftOf="@+id/sendComment"
+            android:layout_alignTop="@+id/sendComment"
             android:textColor="#ffffffff"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+            android:hint="Rédigez un commentaire" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=">"
-            android:id="@+id/button"
+            android:id="@+id/sendComment"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="25dp"
             android:textColor="#ff2f983c"
-            android:background="#ff0c0207" />
+            android:background="#e60c0207" />
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/listComments"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_above="@+id/commentMessage" />
 
     </RelativeLayout>
 </FrameLayout>

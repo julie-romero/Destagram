@@ -70,6 +70,10 @@ public class RegisterActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Inscription
+     * @param view
+     */
     public void register(View view) {
         // récupération de l'email
         final String email = emailField.getText().toString();

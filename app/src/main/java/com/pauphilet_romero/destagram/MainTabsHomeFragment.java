@@ -51,58 +51,58 @@ public class MainTabsHomeFragment extends Fragment {
                 @Override
                 public void run() {
 
-                // Requête http
-                HttpRequest request = null;
-                try {
-                    request = new HttpRequest("http://destagram.zz.mu/medias.php?token="+ URLEncoder.encode(token, "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    // on traduit la réponse en objet JSON
-                    JSONObject json = new JSONObject(request.getResponse());
+                    // Requête http
+                    HttpRequest request = null;
+                    try {
+                        request = new HttpRequest("http://destagram.zz.mu/medias.php?token="+ URLEncoder.encode(token, "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        // on traduit la réponse en objet JSON
+                        JSONObject json = new JSONObject(request.getResponse());
 
-                    error = json.getBoolean("error");
-                    // si il n'y a pas d'erreur
-                    if (!error) {
-                        JSONArray jsonMedias = json.getJSONArray("medias");
-                        final ArrayList<Media> medias = Media.fromJson(jsonMedias);
+                        error = json.getBoolean("error");
+                        // si il n'y a pas d'erreur
+                        if (!error) {
+                            JSONArray jsonMedias = json.getJSONArray("medias");
+                            final ArrayList<Media> medias = Media.fromJson(jsonMedias);
 
-                        adapter = new MediasAdapter(getActivity(), medias);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                            // on lie l'adapter à la gridView
-                            gridView.setAdapter(adapter);
+                            adapter = new MediasAdapter(getActivity(), medias);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                // on lie l'adapter à la gridView
+                                gridView.setAdapter(adapter);
 
-                            // au clic sur un média, on lance la MediaActivity correspondante
-                            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                                // on récupère le média sélectionné
-                                Media media = (Media) gridView.getItemAtPosition(position);
+                                // au clic sur un média, on lance la MediaActivity correspondante
+                                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                                    // on récupère le média sélectionné
+                                    Media media = (Media) gridView.getItemAtPosition(position);
 
-                                // On instancie l'intent
-                                Intent intent = new Intent(getActivity(), MediaTabsActivity.class);
-                                // On y place les données souhaitées
-                                intent.putExtra("mediaId", media.getId());
-                                intent.putExtra("mediaTitle", media.getTitre());
-                                intent.putExtra("token", token);
+                                    // On instancie l'intent
+                                    Intent intent = new Intent(getActivity(), MediaTabsActivity.class);
+                                    // On y place les données souhaitées
+                                    intent.putExtra("mediaId", media.getId());
+                                    intent.putExtra("mediaTitle", media.getTitre());
+                                    intent.putExtra("token", token);
 
-                                // On démarre la nouvelle activité
-                                getActivity().startActivity(intent);
-                                }
+                                    // On démarre la nouvelle activité
+                                    getActivity().startActivity(intent);
+                                    }
+                                });
+                            }
                             });
                         }
-                        });
+                        else
+                        {
+                            toast.setText(R.string.error_general);
+                            toast.show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    else
-                    {
-                        toast.setText(R.string.error_general);
-                        toast.show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 }
             });
             thread.start();

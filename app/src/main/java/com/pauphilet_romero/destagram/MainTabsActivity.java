@@ -105,6 +105,10 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Ajout d'un ami
+     * @param view
+     */
     public void addFriend(View view)
     {
         // création d'un toast pour afficher les erreurs

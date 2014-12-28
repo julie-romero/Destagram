@@ -1,23 +1,20 @@
 package com.pauphilet_romero.destagram.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pauphilet_romero.destagram.R;
 import com.pauphilet_romero.destagram.models.Comment;
-import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.DateFunctions;
-import com.pauphilet_romero.destagram.utils.DownloadImageTask;
 
 import java.util.ArrayList;
 
 /**
+ * Adapter pour les commentaires
  * Created by Jimmy on 16/12/2014.
  */
 public class CommentsAdapter extends ArrayAdapter<Comment> {
