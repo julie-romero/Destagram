@@ -142,7 +142,7 @@ public class MainTabsMediaFragment extends Fragment {
     }
 
     private void sendPhoto() {
-        new DownloadImageTask().execute("",token);
+        new DownloadImageTask().execute(token);
     }
 
     @Override
@@ -248,6 +248,7 @@ public class MainTabsMediaFragment extends Fragment {
         private String token;
         @Override
         protected Object doInBackground(Object[] params) {
+            token = params[0].toString();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if(bitmapToSend!=null)
                 bitmapToSend.compress(Bitmap.CompressFormat.JPEG, 100, stream); // convert Bitmap to ByteArrayOutputStream
@@ -317,9 +318,9 @@ public class MainTabsMediaFragment extends Fragment {
             return null;
         }
 
-        protected void onPostExecute(Bitmap result,String token) {
+        protected void onPostExecute(Bitmap result) {
             token = token;
-            mImageView.setImageBitmap(result);
+            //mImageView.setImageBitmap(result);
         }
 
     }
