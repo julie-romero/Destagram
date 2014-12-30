@@ -15,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -38,37 +39,53 @@ import com.pauphilet_romero.destagram.utils.MultipartEntity;
 /**
  * Onglet "Ajout de média"
  */
-public class MainTabsMediaFragment extends Fragment implements View.OnClickListener {
+public class MainTabsMediaFragment extends Fragment {
     private Button mTakePhoto;
+    private Button mUpload;
     private ImageView mImageView;
+    private Bitmap bitmapToSend;
+    public static final String PATH = "path";
+    public static final String EXTERNAL_BASE_PATH = Environment
+            .getExternalStorageDirectory().getAbsolutePath();
     private static final String TAG = "upload";
+    String mCurrentPhotoPath;
+    private String token = "";
+    static final int REQUEST_TAKE_PHOTO = 1;
+    File photoFile = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        final Intent intent = getActivity().getIntent();
+        token = intent.getStringExtra("token");
         View rootView = inflater.inflate(R.layout.fragment_main_tabs_media, container, false);
         mTakePhoto = (Button) rootView.findViewById(R.id.take_photo);
         mImageView = (ImageView) rootView.findViewById(R.id.imageview);
+        mUpload = (Button) rootView.findViewById(R.id.upload);
+        mTakePhoto.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                int id = v.getId();
+                switch (id) {
+                    case R.id.take_photo:
+                        takePhoto();
+                        break;
+                }
+            }
+        });
+        mUpload.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                sendPhoto();
+            }
 
-        mTakePhoto.setOnClickListener(this);
+        });
         return rootView;
-
     }
 
-        @Override
-        public void onClick(View v) {
-        // TODO Auto-generated method stub
-        int id = v.getId();
-        switch (id) {
-            case R.id.take_photo:
-                takePhoto();
-                break;
-        }
-    }
 
     private void takePhoto() {
 		//Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		//intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-	    //startActivityForResult(intent, 0);
+	    //this.getActivity().startActivityForResult(intent, 0);
         dispatchTakePictureIntent();
     }
 
@@ -76,108 +93,91 @@ public class MainTabsMediaFragment extends Fragment implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         Log.i(TAG, "onActivityResult: " + this);
+
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
             setPic();
 			Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 			if (bitmap != null) {
 				mImageView.setImageBitmap(bitmap);
-				try {
-					sendPhoto(bitmap);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                bitmapToSend = bitmap;
 			}
         }
     }
 
-    private void sendPhoto(Bitmap bitmap) throws Exception {
-        new UploadTask().execute(bitmap);
-    }
+    private void sendPhoto() {
 
-    private class UploadTask extends AsyncTask<Bitmap, Void, Void> {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmapToSend.compress(Bitmap.CompressFormat.PNG, 100, stream); // convert Bitmap to ByteArrayOutputStream
+        InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
 
-        protected Void doInBackground(Bitmap... bitmaps) {
-            if (bitmaps[0] == null)
-                return null;
-            //Aucune idée de ce que cette fonction peut bien faire
-            //setProgress(0);
+        DefaultHttpClient httpclient = new DefaultHttpClient();
+        try {
+            HttpPost httppost = new HttpPost(
+                    "http://destagram.zz.mu/upload.php"); // server
 
-            Bitmap bitmap = bitmaps[0];
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); // convert Bitmap to ByteArrayOutputStream
-            InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
+            MultipartEntity reqEntity = new MultipartEntity();
+            reqEntity.addPart("file",
+                    System.currentTimeMillis() + ".jpg", in);
+            reqEntity.addPart("token",
+                    token, in);
+            reqEntity.addPart("titre",
+                    "BOOM BITCH", in);
+            reqEntity.addPart("description",
+                    "BOOM BITCH", in);
+            httppost.setEntity(reqEntity);
 
-            DefaultHttpClient httpclient = new DefaultHttpClient();
+            Log.i(TAG, "request " + httppost.getRequestLine());
+            HttpResponse response = null;
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
             try {
-                HttpPost httppost = new HttpPost(
-                        "http://destagram.zz.mu/upload.php"); // server
-
-                MultipartEntity reqEntity = new MultipartEntity();
-                reqEntity.addPart("myFile",
-                        System.currentTimeMillis() + ".jpg", in);
-                httppost.setEntity(reqEntity);
-
-                Log.i(TAG, "request " + httppost.getRequestLine());
-                HttpResponse response = null;
-                try {
-                    response = httpclient.execute(httppost);
-                } catch (ClientProtocolException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                try {
-                    if (response != null)
-                        Log.i(TAG, "response " + response.getStatusLine().toString());
-                } finally {
-
-                }
+                response = httpclient.execute(httppost);
+            } catch (ClientProtocolException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            try {
+                if (response != null)
+                    Log.i(TAG, "response " + response.getStatusLine().toString());
             } finally {
 
             }
+        } finally {
 
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+        }
+
+        if (in != null) {
+            try {
+                in.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
+        }
 
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+        if (stream != null) {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-
-            return null;
         }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            // TODO Auto-generated method stub
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-            Toast.makeText(getActivity(), "uploaded", Toast.LENGTH_LONG).show();
-        }
     }
 
-    String mCurrentPhotoPath;
-
-    static final int REQUEST_TAKE_PHOTO = 2;
-    File photoFile = null;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+    }
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -195,7 +195,7 @@ public class MainTabsMediaFragment extends Fragment implements View.OnClickListe
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                this.getActivity().startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
     }
@@ -252,12 +252,6 @@ public class MainTabsMediaFragment extends Fragment implements View.OnClickListe
 
         mImageView.setImageBitmap(rotatedBMP);
 
-        try {
-            sendPhoto(rotatedBMP);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
     }
 }
-
