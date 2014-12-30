@@ -3,6 +3,7 @@ package com.pauphilet_romero.destagram;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -28,6 +29,37 @@ import java.net.URLEncoder;
  * Activité gérant les onglets "home - ajouter un média - amis"
  */
 public class MainTabsActivity extends FragmentActivity implements ActionBar.TabListener {
+    // Storage for camera image URI components
+    private final static String CAPTURED_PHOTO_PATH_KEY = "mCurrentPhotoPath";
+    private final static String CAPTURED_PHOTO_URI_KEY = "mCapturedImageURI";
+
+    // Required for camera operations in order to save the image file on resume.
+    private String mCurrentPhotoPath = null;
+    private Uri mCapturedImageURI = null;
+
+    public static String getCapturedPhotoPathKey() {
+        return CAPTURED_PHOTO_PATH_KEY;
+    }
+
+    public static String getCapturedPhotoUriKey() {
+        return CAPTURED_PHOTO_URI_KEY;
+    }
+
+    public String getmCurrentPhotoPath() {
+        return mCurrentPhotoPath;
+    }
+
+    public void setmCurrentPhotoPath(String mCurrentPhotoPath) {
+        this.mCurrentPhotoPath = mCurrentPhotoPath;
+    }
+
+    public Uri getmCapturedImageURI() {
+        return mCapturedImageURI;
+    }
+
+    public void setmCapturedImageURI(Uri mCapturedImageURI) {
+        this.mCapturedImageURI = mCapturedImageURI;
+    }
 
     private ViewPager viewPager;
     private MainTabsPagerAdapter mAdapter;
