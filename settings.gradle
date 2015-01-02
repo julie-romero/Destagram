@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':commons-codec-1.6', ':commons-logging-1.1.3', ':fluent-hc-4.3.6', ':httpclient-4.3.6', ':httpclient-cache-4.3.6', ':httpcore-4.3.3', ':httpmime-4.3.6'

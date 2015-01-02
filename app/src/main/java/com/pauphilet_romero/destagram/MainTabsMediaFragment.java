@@ -1,33 +1,28 @@
 package com.pauphilet_romero.destagram;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -53,7 +48,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.pauphilet_romero.destagram.utils.MultipartEntity;
+//import com.pauphilet_romero.destagram.utils.MultipartEntity;
 
 
 /**
@@ -206,8 +201,8 @@ public class MainTabsMediaFragment extends Fragment {
             if (photoFile != null) {
                 Uri fileUri = Uri.fromFile(photoFile);
                 Log.d("create file", "uri : " + fileUri);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        activity.getmCapturedImageURI());
+                /*takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        activity.getmCapturedImageURI());*/
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
@@ -320,18 +315,19 @@ public class MainTabsMediaFragment extends Fragment {
             byte[] buffer;
             int maxBufferSize = 1*1024*1024;
             String responseFromServer = "";
+            MainTabsActivity activity = (MainTabsActivity)getActivity();
             try {
                 Log.i(TAG, "token : " + token);
                 EditText edit_titre = (EditText) rootView.findViewById(R.id.titre);
                 EditText edit_desc = (EditText) rootView.findViewById(R.id.description);
-                //HttpPost httppost = new HttpPost("http://destagram.zz.mu/upload.php"); // server
-                // Add your data
+
+                /*// Add your data
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
                 nameValuePairs.add(new BasicNameValuePair("file", System.currentTimeMillis() + ".jpg"));
                 nameValuePairs.add(new BasicNameValuePair("token", token));
                 nameValuePairs.add(new BasicNameValuePair("titre", edit_titre.getText().toString()));
                 nameValuePairs.add(new BasicNameValuePair("description", edit_desc.getText().toString()));
-                MainTabsActivity activity = (MainTabsActivity)getActivity();
+
                 Log.d("upload","PAth : " +activity.getmCurrentPhotoPath());
                 //------------------ CLIENT REQUEST
                 FileInputStream fileInputStream = new FileInputStream(new File(activity.getmCurrentPhotoPath()));
@@ -393,7 +389,7 @@ public class MainTabsMediaFragment extends Fragment {
             try {
                 inStream = new DataInputStream( conn.getInputStream() );
                 String str;
-
+                Log.i(TAG, "response : " + conn.getResponseMessage());
                 while (( str = inStream.readLine()) != null)
                 {
                     Log.e("Debug","Server Response "+str);
@@ -403,30 +399,42 @@ public class MainTabsMediaFragment extends Fragment {
             }
             catch (IOException ioex){
                 Log.e("Debug", "error: " + ioex.getMessage(), ioex);
-            }
-            /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            }*/
+            HttpPost httppost = new HttpPost("http://destagram.zz.mu/upload.php"); // server
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if(bitmapToSend!=null)
                 bitmapToSend.compress(Bitmap.CompressFormat.JPEG, 100, stream); // convert Bitmap to ByteArrayOutputStream
             InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
 
 
-                try {
+               /* try {
                     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
-                }
+                }*/
 
-                MultipartEntity reqEntity = new MultipartEntity();
+                MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("file",
-                        System.currentTimeMillis() + ".jpg", in);
-                reqEntity.addPart("token",
-                        token, in);
-                EditText edit_titre = (EditText) rootView.findViewById(R.id.titre);
-                EditText edit_desc = (EditText) rootView.findViewById(R.id.description);
-                reqEntity.addPart("titre",
-                        edit_titre.getText().toString(), in);
-                reqEntity.addPart("description",
-                        edit_desc.getText().toString(), in);
+                        new FileBody(new File(activity.getmCurrentPhotoPath(), "image/jpeg")));
+
+                try {
+                    reqEntity.addPart("token",
+                            new StringBody(token));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                };
+
+                try {
+                    reqEntity.addPart("titre",new StringBody(edit_titre.getText().toString()));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    reqEntity.addPart("description",
+                            new StringBody(edit_desc.getText().toString()));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 httppost.setEntity(reqEntity);
 
                 Log.i(TAG, "request " + httppost.getRequestLine());
@@ -457,7 +465,7 @@ public class MainTabsMediaFragment extends Fragment {
 
             }
 
-            if (in != null) {
+            /*if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
