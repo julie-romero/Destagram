@@ -3,6 +3,7 @@ package com.pauphilet_romero.destagram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,6 +97,7 @@ public class LoginActivity extends Activity {
                             e.printStackTrace();
                         }
                         try {
+                            Log.i("Login", "respone : " + request.getResponse());
                             // on traduit la réponse en objet JSON
                             JSONObject json = new JSONObject(request.getResponse());
 

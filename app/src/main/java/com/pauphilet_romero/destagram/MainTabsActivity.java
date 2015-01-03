@@ -31,18 +31,20 @@ import java.net.URLEncoder;
 public class MainTabsActivity extends FragmentActivity implements ActionBar.TabListener {
     // Storage for camera image URI components
     private final static String CAPTURED_PHOTO_PATH_KEY = "mCurrentPhotoPath";
-    private final static String CAPTURED_PHOTO_URI_KEY = "mCapturedImageURI";
 
     // Required for camera operations in order to save the image file on resume.
     private String mCurrentPhotoPath = null;
-    private Uri mCapturedImageURI = null;
+    private String mCurrentPhotoFullSizePath = null;
 
-    public static String getCapturedPhotoPathKey() {
-        return CAPTURED_PHOTO_PATH_KEY;
+    public String getmCurrentPhotoFullSizePath() {
+        return mCurrentPhotoFullSizePath;
     }
 
-    public static String getCapturedPhotoUriKey() {
-        return CAPTURED_PHOTO_URI_KEY;
+    public void setmCurrentPhotoFullSizePath(String mCurrentPhotoFullSizePath) {
+        this.mCurrentPhotoFullSizePath = mCurrentPhotoFullSizePath;
+    }
+    public static String getCapturedPhotoPathKey() {
+        return CAPTURED_PHOTO_PATH_KEY;
     }
 
     public String getmCurrentPhotoPath() {
@@ -51,14 +53,6 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
 
     public void setmCurrentPhotoPath(String mCurrentPhotoPath) {
         this.mCurrentPhotoPath = mCurrentPhotoPath;
-    }
-
-    public Uri getmCapturedImageURI() {
-        return mCapturedImageURI;
-    }
-
-    public void setmCapturedImageURI(Uri mCapturedImageURI) {
-        this.mCapturedImageURI = mCapturedImageURI;
     }
 
     private ViewPager viewPager;

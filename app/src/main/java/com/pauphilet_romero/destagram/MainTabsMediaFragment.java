@@ -1,16 +1,14 @@
 package com.pauphilet_romero.destagram;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
@@ -58,19 +56,21 @@ public class MainTabsMediaFragment extends Fragment {
     private Button mTakePhoto;
     private Button mUpload;
     private ImageView mImageView;
-    private Bitmap bitmapToSend;
-    public static final String PATH = "path";
+    private Bitmap fullsizePhoto;
     private static final String TAG = "upload";
-    String mCurrentPhotoPath;
     private String token = "";
     static final int REQUEST_TAKE_PHOTO = 1;
-    File photoFile = null;
+    File fullSizeFile = null;
     private View rootView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final Intent intent = getActivity().getIntent();
         token = intent.getStringExtra("token");
         rootView = inflater.inflate(R.layout.fragment_main_tabs_media, container, false);
+        EditText edit_titre = (EditText) rootView.findViewById(R.id.titre);
+        EditText edit_desc = (EditText) rootView.findViewById(R.id.description);
+        edit_titre.setText(new String(""));
+        edit_desc.setText(new String(""));
         mTakePhoto = (Button) rootView.findViewById(R.id.take_photo);
         mImageView = (ImageView) rootView.findViewById(R.id.imageview);
         mUpload = (Button) rootView.findViewById(R.id.upload);
@@ -107,20 +107,9 @@ public class MainTabsMediaFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         Log.i(TAG, "onActivityResult: " + this);
-        Log.i(TAG, "data: " + data.getExtras().get("data"));
-        bitmapToSend = (Bitmap) data.getExtras().get("data");
-        // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-        Uri tempUri = getImageUri(this.getActivity().getApplicationContext(), bitmapToSend);
-        Log.d("upload" , "tempUri " + tempUri);
-        // CALL THIS METHOD TO GET THE ACTUAL PATH
-        File finalFile = new File(getRealPathFromURI(tempUri));
-        setPic();
         MainTabsActivity activity = (MainTabsActivity)getActivity();
-        activity.setmCurrentPhotoPath(getRealPathFromURI(tempUri));
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
-                //Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                // Show the full sized image.
-                setFullImageFromFilePath(activity.getmCurrentPhotoPath(), mImageView);
+                setFullImageFromFilePath(activity.getmCurrentPhotoFullSizePath(), mImageView);
             } else {
                 Toast.makeText(getActivity(), "Image Capture Failed", Toast.LENGTH_SHORT)
                         .show();
@@ -135,7 +124,6 @@ public class MainTabsMediaFragment extends Fragment {
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-        //BitmapFactory.decodeFile(imagePath, bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
@@ -147,9 +135,8 @@ public class MainTabsMediaFragment extends Fragment {
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
 
-        bitmapToSend = BitmapFactory.decodeFile(imagePath, bmOptions);
-        //Log.i("upload",bitmapToSend.toString());
-        imageView.setImageBitmap(bitmapToSend);
+        fullsizePhoto = BitmapFactory.decodeFile(imagePath, bmOptions);
+        imageView.setImageBitmap(fullsizePhoto);
     }
 
     private void sendPhoto() {
@@ -180,25 +167,26 @@ public class MainTabsMediaFragment extends Fragment {
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
             // Create the File where the photo should go.
             // If you don't do this, you may get a crash in some devices.
-            File photoFile = null;
             try {
-                photoFile = createImageFile();
+                fullSizeFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 Toast toast = Toast.makeText(activity, "There was a problem saving the photo...", Toast.LENGTH_SHORT);
                 toast.show();
             }
             // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri fileUri = Uri.fromFile(photoFile);
+            if (fullSizeFile != null) {
+                // Save a file: path for use with ACTION_VIEW intents
+                Log.i("path", "path : " + Uri.fromFile(fullSizeFile).getPath().toString());
+                activity.setmCurrentPhotoFullSizePath(Uri.fromFile(fullSizeFile).getPath().toString());
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(fullSizeFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+           }
         }
     }
 
-    /**
-     * http://developer.android.com/training/camera/photobasics.html
-     */
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -206,57 +194,13 @@ public class MainTabsMediaFragment extends Fragment {
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+                imageFileName,
+                ".jpg",
+                storageDir
         );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        MainTabsActivity activity = (MainTabsActivity)getActivity();
-        //activity.setmCurrentPhotoPath(image.getAbsolutePath());
         return image;
     }
 
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = mImageView.getWidth();
-        int targetH = mImageView.getHeight();
-        //MainTabsActivity activity = (MainTabsActivity)getActivity();
-        //mCurrentPhotoPath = activity.getmCurrentPhotoPath();
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor << 1;
-        bmOptions.inPurgeable = true;
-        Matrix mtx = new Matrix();
-        mtx.postRotate(90);
-        // Rotating Bitmap
-        Bitmap rotatedBMP = Bitmap.createBitmap(bitmapToSend, 0, 0, bitmapToSend.getWidth(), bitmapToSend.getHeight(), mtx, true);
-        if (rotatedBMP != bitmapToSend)
-            bitmapToSend.recycle();
-        mImageView.setImageBitmap(rotatedBMP);
-    }
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        //Compression de l'image
-        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = this.getActivity().getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
-    }
 
     private class DownloadImageTask extends AsyncTask {
 
@@ -265,16 +209,6 @@ public class MainTabsMediaFragment extends Fragment {
         protected Object doInBackground(Object[] params) {
             token = params[0].toString();
             DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpURLConnection conn = null;
-            DataOutputStream dos = null;
-            DataInputStream inStream = null;
-            String lineEnd = "rn";
-            String twoHyphens = "--";
-            String boundary =  "*****";
-            int bytesRead, bytesAvailable, bufferSize;
-            byte[] buffer;
-            int maxBufferSize = 1*1024*1024;
-            String responseFromServer = "";
             MainTabsActivity activity = (MainTabsActivity)getActivity();
             try {
                 Log.i(TAG, "token : " + token);
@@ -283,7 +217,7 @@ public class MainTabsMediaFragment extends Fragment {
                 HttpPost httppost = new HttpPost("http://destagram.zz.mu/upload.php"); // server
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("file",
-                        new FileBody(new File(activity.getmCurrentPhotoPath())));
+                        new FileBody(fullSizeFile));
 
                 try {
                     reqEntity.addPart("token",

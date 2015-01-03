@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pauphilet_romero.destagram.adapters.MediasAdapter;
@@ -43,6 +45,8 @@ public class MainTabsHomeFragment extends Fragment {
         final Intent intent = getActivity().getIntent();
         final String token = intent.getStringExtra("token");
         gridView = (GridView) rootView.findViewById(R.id.listMedias);
+
+
         // on vérifie la connexion Internet
         ConnectionDetector connection = new ConnectionDetector(getActivity());
         if(connection.isConnectingToInternet()) {
