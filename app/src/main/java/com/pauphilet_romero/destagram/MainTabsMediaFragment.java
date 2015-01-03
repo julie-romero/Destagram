@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -110,13 +112,27 @@ public class MainTabsMediaFragment extends Fragment {
         MainTabsActivity activity = (MainTabsActivity)getActivity();
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
                 setFullImageFromFilePath(activity.getmCurrentPhotoFullSizePath(), mImageView);
+                compressFile(fullsizePhoto);
             } else {
                 Toast.makeText(getActivity(), "Image Capture Failed", Toast.LENGTH_SHORT)
                         .show();
             }
 
     }
+    private void compressFile(Bitmap bitmap)
+    {
+        try{
+            OutputStream out = null;
+            out = new FileOutputStream(fullSizeFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,50,out);
+            out.flush();
+            out.close();
+        }catch(Exception e){
+            Log.e("Dak","Erreur compress : "+e.toString());
+        }
+    }
     private void setFullImageFromFilePath(String imagePath, ImageView imageView) {
+
         // Get the dimensions of the View
         int targetW = imageView.getWidth();
         int targetH = imageView.getHeight();
@@ -136,6 +152,7 @@ public class MainTabsMediaFragment extends Fragment {
         bmOptions.inPurgeable = true;
 
         fullsizePhoto = BitmapFactory.decodeFile(imagePath, bmOptions);
+
         imageView.setImageBitmap(fullsizePhoto);
     }
 
