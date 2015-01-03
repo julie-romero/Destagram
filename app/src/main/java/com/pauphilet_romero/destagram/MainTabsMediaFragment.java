@@ -415,7 +415,7 @@ public class MainTabsMediaFragment extends Fragment {
 
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("file",
-                        new FileBody(new File(activity.getmCurrentPhotoPath(), "image/jpeg")));
+                        new FileBody(new File(activity.getmCurrentPhotoPath())));
 
                 try {
                     reqEntity.addPart("token",
