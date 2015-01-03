@@ -114,15 +114,6 @@ public class MainTabsMediaFragment extends Fragment {
         Log.d("upload" , "tempUri " + tempUri);
         // CALL THIS METHOD TO GET THE ACTUAL PATH
         File finalFile = new File(getRealPathFromURI(tempUri));
-        /*if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
-            setPic();
-			Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-			if (bitmap != null) {
-				mImageView.setImageBitmap(bitmap);
-                Log.d("Bitmap to send", bitmap.toString());
-                bitmapToSend = bitmap;
-			}
-        }*/
         setPic();
         MainTabsActivity activity = (MainTabsActivity)getActivity();
         activity.setmCurrentPhotoPath(getRealPathFromURI(tempUri));
@@ -200,9 +191,6 @@ public class MainTabsMediaFragment extends Fragment {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri fileUri = Uri.fromFile(photoFile);
-                Log.d("create file", "uri : " + fileUri);
-                /*takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        activity.getmCapturedImageURI());*/
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
@@ -241,32 +229,24 @@ public class MainTabsMediaFragment extends Fragment {
         //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
-
         // Determine how much to scale down the image
         int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor << 1;
         bmOptions.inPurgeable = true;
-
-        //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        //Log.d("upload","path + "+bitmap.getWidth());
         Matrix mtx = new Matrix();
         mtx.postRotate(90);
         // Rotating Bitmap
         Bitmap rotatedBMP = Bitmap.createBitmap(bitmapToSend, 0, 0, bitmapToSend.getWidth(), bitmapToSend.getHeight(), mtx, true);
-
         if (rotatedBMP != bitmapToSend)
             bitmapToSend.recycle();
-        Log.d("bitmap to send", "bitmap : " + bitmapToSend.getWidth());
         mImageView.setImageBitmap(rotatedBMP);
-
-
     }
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        //Compression de l'image
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
@@ -277,27 +257,7 @@ public class MainTabsMediaFragment extends Fragment {
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
-   /* private static String convertStreamToString(InputStream is) {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return sb.toString();
-    }*/
     private class DownloadImageTask extends AsyncTask {
 
         private String token;
@@ -320,99 +280,7 @@ public class MainTabsMediaFragment extends Fragment {
                 Log.i(TAG, "token : " + token);
                 EditText edit_titre = (EditText) rootView.findViewById(R.id.titre);
                 EditText edit_desc = (EditText) rootView.findViewById(R.id.description);
-
-                /*// Add your data
-                ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                nameValuePairs.add(new BasicNameValuePair("file", System.currentTimeMillis() + ".jpg"));
-                nameValuePairs.add(new BasicNameValuePair("token", token));
-                nameValuePairs.add(new BasicNameValuePair("titre", edit_titre.getText().toString()));
-                nameValuePairs.add(new BasicNameValuePair("description", edit_desc.getText().toString()));
-
-                Log.d("upload","PAth : " +activity.getmCurrentPhotoPath());
-                //------------------ CLIENT REQUEST
-                FileInputStream fileInputStream = new FileInputStream(new File(activity.getmCurrentPhotoPath()));
-                // open a URL connection to the Servlet
-                URL url = new URL("http://destagram.zz.mu/upload.php");
-                // Open a HTTP connection to the URL
-                conn = (HttpURLConnection) url.openConnection();
-                // Allow Inputs
-                conn.setDoInput(true);
-                // Allow Outputs
-                conn.setDoOutput(true);
-                // Don't use a cached copy.
-                conn.setUseCaches(false);
-                // Use a post method.
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Connection", "Keep-Alive");
-                conn.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
-                String fileName = System.currentTimeMillis() + ".jpg";
-                conn.setRequestProperty("file", fileName);
-                conn.setRequestProperty("token", token);
-
-                conn.setRequestProperty("titre", edit_titre.getText().toString());
-                conn.setRequestProperty("description", edit_desc.getText().toString());
-                dos = new DataOutputStream( conn.getOutputStream() );
-                dos.writeBytes(twoHyphens + boundary + lineEnd);
-                dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""+fileName+"\""  + lineEnd);
-                dos.writeBytes(lineEnd);
-                // create a buffer of maximum size
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                buffer = new byte[bufferSize];
-                // read file and write it into form...
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                while (bytesRead > 0)
-                {
-                    dos.write(buffer, 0, bufferSize);
-                    bytesAvailable = fileInputStream.available();
-                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                }
-                // send multipart form data necesssary after file data...
-                dos.writeBytes(lineEnd);
-                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-                // close streams
-                Log.e("Debug","File is written");
-                fileInputStream.close();
-                dos.flush();
-                dos.close();
-            }
-            catch (MalformedURLException ex)
-            {
-                Log.e("Debug", "error: " + ex.getMessage(), ex);
-            }
-            catch (IOException ioe)
-            {
-                Log.e("Debug", "error: " + ioe.getMessage(), ioe);
-            }
-            //------------------ read the SERVER RESPONSE
-            try {
-                inStream = new DataInputStream( conn.getInputStream() );
-                String str;
-                Log.i(TAG, "response : " + conn.getResponseMessage());
-                while (( str = inStream.readLine()) != null)
-                {
-                    Log.e("Debug","Server Response "+str);
-                }
-                inStream.close();
-
-            }
-            catch (IOException ioex){
-                Log.e("Debug", "error: " + ioex.getMessage(), ioex);
-            }*/
-            HttpPost httppost = new HttpPost("http://destagram.zz.mu/upload.php"); // server
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            if(bitmapToSend!=null)
-                bitmapToSend.compress(Bitmap.CompressFormat.JPEG, 100, stream); // convert Bitmap to ByteArrayOutputStream
-            InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
-
-
-               /* try {
-                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }*/
-
+                HttpPost httppost = new HttpPost("http://destagram.zz.mu/upload.php"); // server
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("file",
                         new FileBody(new File(activity.getmCurrentPhotoPath())));
@@ -436,10 +304,8 @@ public class MainTabsMediaFragment extends Fragment {
                     e.printStackTrace();
                 }
                 httppost.setEntity(reqEntity);
-
                 Log.i(TAG, "request " + httppost.getRequestLine());
                 HttpResponse response = null;
-
                 try {
                     response = httpclient.execute(httppost);
                     String json = EntityUtils.toString(response.getEntity());
@@ -464,30 +330,11 @@ public class MainTabsMediaFragment extends Fragment {
             } finally {
 
             }
-
-            /*if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }*/
             return null;
         }
 
         protected void onPostExecute(Bitmap result) {
             token = token;
-            //mImageView.setImageBitmap(result);
         }
 
     }
