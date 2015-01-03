@@ -130,6 +130,7 @@ public class MediaTabsMediaFragment extends Fragment {
                             // composant qui affichera le média (image)
                             final ImageView imageView = (ImageView) getActivity().findViewById(R.id.mediaFrame);
                             // téléchargement en arrière-plan de l'image
+                            Log.i("telechargement image" , "name : " + media.getName() );
                             new DownloadImageTask(imageView).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
                         }
                         else

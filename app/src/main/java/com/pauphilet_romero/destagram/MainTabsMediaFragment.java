@@ -1,15 +1,10 @@
 package com.pauphilet_romero.destagram;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,10 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,6 +41,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.pauphilet_romero.destagram.utils.FileDialog;
+
 //import com.pauphilet_romero.destagram.utils.MultipartEntity;
 
 
@@ -57,7 +52,9 @@ import android.view.ViewGroup;
 public class MainTabsMediaFragment extends Fragment {
     private Button mTakePhoto;
     private Button mUpload;
+    private Button mChooseFile;
     private ImageView mImageView;
+    private FileDialog fileDialog;
     private Bitmap fullsizePhoto;
     private static final String TAG = "upload";
     private String token = "";
@@ -71,11 +68,39 @@ public class MainTabsMediaFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_main_tabs_media, container, false);
         EditText edit_titre = (EditText) rootView.findViewById(R.id.titre);
         EditText edit_desc = (EditText) rootView.findViewById(R.id.description);
+        mChooseFile = (Button) rootView.findViewById(R.id.choose_file);
         edit_titre.setText(new String(""));
         edit_desc.setText(new String(""));
         mTakePhoto = (Button) rootView.findViewById(R.id.take_photo);
         mImageView = (ImageView) rootView.findViewById(R.id.imageview);
         mUpload = (Button) rootView.findViewById(R.id.upload);
+        mChooseFile.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                File mPath = new File(Environment.getExternalStorageDirectory() + "//DIR//");
+                MainTabsActivity activity = (MainTabsActivity)getActivity();
+                fileDialog = new FileDialog(activity, mPath);
+                fileDialog.setFileEndsWith(".txt");
+                fileDialog.addFileListener(new FileDialog.FileSelectedListener() {
+                    public void fileSelected(File file) {
+                        Log.d(getClass().getName(), "selected file " + file.toString());
+                        fullSizeFile = file;
+                        MainTabsActivity activity = (MainTabsActivity)getActivity();
+                        activity.setmCurrentPhotoFullSizePath(file.toString());
+                        setFullImageFromFilePath(activity.getmCurrentPhotoFullSizePath(), mImageView);
+                        compressFile(fullsizePhoto);
+
+                    }
+                });
+                //fileDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
+                //  public void directorySelected(File directory) {
+                //      Log.d(getClass().getName(), "selected dir " + directory.toString());
+                //  }
+                //});
+                //fileDialog.setSelectDirectoryOption(false);
+                fileDialog.showDialog();
+            }
+        });
         mTakePhoto.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -157,7 +182,8 @@ public class MainTabsMediaFragment extends Fragment {
     }
 
     private void sendPhoto() {
-        new DownloadImageTask().execute(token);
+        Log.i("Upload", "Sending photo ...");
+        new UploadImageTask().execute(token);
     }
 
     @Override
@@ -219,7 +245,7 @@ public class MainTabsMediaFragment extends Fragment {
     }
 
 
-    private class DownloadImageTask extends AsyncTask {
+    private class UploadImageTask extends AsyncTask {
 
         private String token;
         @Override
