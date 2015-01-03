@@ -1,6 +1,8 @@
 package com.pauphilet_romero.destagram.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.DownloadImageTask;
 
 import java.util.ArrayList;
+
+import static com.pauphilet_romero.destagram.utils.DownloadImageTask.getBitmapFromMemCache;
 
 /**
  * Adapter pour les médias
@@ -62,10 +66,18 @@ public class MediasAdapter extends ArrayAdapter<Media> {
 
         // attribue les données de l'objet aux éléments de la vue
         viewHolder.titre.setText(media.getTitre());
+        Bitmap bitmap = getBitmapFromMemCache("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
+        Log.i("telechargement image", "name : " + media.getName());
+        if(bitmap == null)
+        {
+            new DownloadImageTask(viewHolder.picture).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
+        }
+        else
+            viewHolder.picture.setImageBitmap(bitmap);
 
-        new DownloadImageTask(viewHolder.picture).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
 
         // retourne la vue à l'écran
         return convertView;
     }
+
 }
