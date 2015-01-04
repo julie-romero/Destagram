@@ -92,12 +92,7 @@ public class MainTabsMediaFragment extends Fragment {
 
                     }
                 });
-                //fileDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
-                //  public void directorySelected(File directory) {
-                //      Log.d(getClass().getName(), "selected dir " + directory.toString());
-                //  }
-                //});
-                //fileDialog.setSelectDirectoryOption(false);
+
                 fileDialog.showDialog();
             }
         });
@@ -175,7 +170,8 @@ public class MainTabsMediaFragment extends Fragment {
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
-
+        bmOptions.inPreferredConfig = Bitmap.Config.RGB_565;
+        bmOptions.inDither=false;
         fullsizePhoto = BitmapFactory.decodeFile(imagePath, bmOptions);
 
         imageView.setImageBitmap(fullsizePhoto);

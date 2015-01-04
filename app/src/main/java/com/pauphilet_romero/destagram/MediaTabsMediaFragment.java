@@ -1,6 +1,8 @@
 package com.pauphilet_romero.destagram;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.pauphilet_romero.destagram.utils.HttpRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -37,14 +40,13 @@ public class MediaTabsMediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_media_tabs_media, container, false);
-
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
         // On récupère l'ID du média et le token de connexion via l'intent
         Intent intent = getActivity().getIntent();
         final String token = intent.getStringExtra("token");
         final Integer mediaId = intent.getIntExtra("mediaId", 0);
-
+        final Context ctx = getActivity().getApplicationContext();
         // On change dynamiquement le titre de la vue selon le média
         getActivity().setTitle(intent.getStringExtra("mediaTitle"));
 
@@ -83,6 +85,7 @@ public class MediaTabsMediaFragment extends Fragment {
                             final TextView mediaDescription = (TextView) getActivity().findViewById(R.id.mediaDescription);
                             final TextView mediaNbLikes = (TextView) getActivity().findViewById(R.id.mediaNbLikes);
                             final Button buttonLike = (Button) getActivity().findViewById(R.id.mediaLike);
+
 
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -129,9 +132,19 @@ public class MediaTabsMediaFragment extends Fragment {
 
                             // composant qui affichera le média (image)
                             final ImageView imageView = (ImageView) getActivity().findViewById(R.id.mediaFrame);
-                            // téléchargement en arrière-plan de l'image
-                            Log.i("telechargement image" , "name : " + media.getName() );
-                            new DownloadImageTask(imageView).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
+                            /*Bitmap bitmap = null;
+                            try {
+                                bitmap = DownloadImageTask.getAssetImage(ctx, media.getName() + "." + media.getExtension());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.i("affichage image", "name : " + media.getName());
+                            if(bitmap == null)
+                            {*/
+                                new DownloadImageTask(imageView).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
+                            /*}
+                            else
+                                imageView.setImageBitmap(bitmap);*/
                         }
                         else
                         {

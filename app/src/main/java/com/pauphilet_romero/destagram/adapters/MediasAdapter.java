@@ -14,9 +14,9 @@ import com.pauphilet_romero.destagram.R;
 import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.DownloadImageTask;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.pauphilet_romero.destagram.utils.DownloadImageTask.getBitmapFromMemCache;
 
 /**
  * Adapter pour les médias
@@ -66,16 +66,22 @@ public class MediasAdapter extends ArrayAdapter<Media> {
 
         // attribue les données de l'objet aux éléments de la vue
         viewHolder.titre.setText(media.getTitre());
-        Bitmap bitmap = getBitmapFromMemCache("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
+        /*Bitmap bitmap = null;
+        try {
+            bitmap = DownloadImageTask.getAssetImage(this.getContext(), media.getName() + "." + media.getExtension());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Log.i("telechargement image", "name : " + media.getName());
         if(bitmap == null)
-        {
+        {*/
             new DownloadImageTask(viewHolder.picture).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
-        }
+        /*}
         else
+        {
             viewHolder.picture.setImageBitmap(bitmap);
-
-
+            Log.i("IMAGE FOUND !", "name : " + media.getName());
+        }*/
         // retourne la vue à l'écran
         return convertView;
     }
