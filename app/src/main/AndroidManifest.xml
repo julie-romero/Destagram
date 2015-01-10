@@ -38,15 +38,18 @@
         </activity>
         <activity
             android:name=".MainTabsActivity"
-            android:label="@string/title_activity_profil" >
+            android:label="@string/title_activity_profil"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MediaTabsActivity"
-            android:label="@string/title_activity_media" >
+            android:label="@string/title_activity_media"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile" >
+            android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

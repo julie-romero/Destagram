@@ -145,6 +145,7 @@ public class MainTabsMediaFragment extends Fragment {
             OutputStream out = null;
             out = new FileOutputStream(fullSizeFile);
             bitmap.compress(Bitmap.CompressFormat.JPEG,50,out);
+            //bitmap.recycle();
             out.flush();
             out.close();
         }catch(Exception e){
@@ -283,7 +284,7 @@ public class MainTabsMediaFragment extends Fragment {
                     response = httpclient.execute(httppost);
                     String json = EntityUtils.toString(response.getEntity());
                     Log.i(TAG, "response : " + json);
-                    Intent intent = new Intent(getActivity(), MainTabsActivity.class);
+                    Intent intent = new Intent(getActivity(), ProfileActivity.class);
                     intent.putExtra("token", token);
                     startActivity(intent);
 
