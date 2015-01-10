@@ -132,19 +132,9 @@ public class MediaTabsMediaFragment extends Fragment {
 
                             // composant qui affichera le média (image)
                             final ImageView imageView = (ImageView) getActivity().findViewById(R.id.mediaFrame);
-                            /*Bitmap bitmap = null;
-                            try {
-                                bitmap = DownloadImageTask.getAssetImage(ctx, media.getName() + "." + media.getExtension());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            Log.i("affichage image", "name : " + media.getName());
-                            if(bitmap == null)
-                            {*/
-                                new DownloadImageTask(imageView).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
-                            /*}
-                            else
-                                imageView.setImageBitmap(bitmap);*/
+
+                            new DownloadImageTask(imageView).execute("http://destagram.zz.mu/uploads/" + media.getName() + "." + media.getExtension());
+
                         }
                         else
                         {
