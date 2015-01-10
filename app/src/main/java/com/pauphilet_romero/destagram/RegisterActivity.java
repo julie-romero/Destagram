@@ -138,7 +138,7 @@ public class RegisterActivity extends Activity {
                             HttpRequest request = null;
                             try {
                                 request = new HttpRequest("http://destagram.zz.mu/register.php?login="+ URLEncoder.encode(email, "UTF-8")
-                                        + "&password="  + URLEncoder.encode(password, "UTF-8")
+                                        + "&password="  + URLEncoder.encode(passwordHash, "UTF-8")
                                         + "&pseudo="  + URLEncoder.encode(pseudo, "UTF-8"));
 
                             } catch (UnsupportedEncodingException e) {
