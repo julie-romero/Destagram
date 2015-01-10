@@ -173,6 +173,7 @@ public class MainTabsMediaFragment extends Fragment {
         bmOptions.inPurgeable = true;
         bmOptions.inPreferredConfig = Bitmap.Config.RGB_565;
         bmOptions.inDither=false;
+        bmOptions.inTempStorage=new byte[1024];
         fullsizePhoto = BitmapFactory.decodeFile(imagePath, bmOptions);
 
         imageView.setImageBitmap(fullsizePhoto);
