@@ -41,30 +41,14 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         Bitmap mIcon11 = null;
         try {
             BitmapFactory.Options bfOptions=new BitmapFactory.Options();
-
-            // Get the dimensions of the View
-            int targetW = bmImage.getWidth();
-            int targetH = bmImage.getHeight();
-            if(targetW!= 0 && targetH!=0)
-            {
-                // Get the dimensions of the bitmap
-                bfOptions.inJustDecodeBounds = true;
-                int photoW = bfOptions.outWidth;
-                int photoH = bfOptions.outHeight;
-
-                // Determine how much to scale down the image
-                int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-                bfOptions.inSampleSize = scaleFactor;
-            }
-            else
-                bfOptions.inSampleSize = 2;
             // Decode the image file into a Bitmap sized to fill the View
+            bfOptions.inSampleSize = 2;
             bfOptions.inJustDecodeBounds = false;
             bfOptions.inPreferredConfig = Bitmap.Config.RGB_565;
             bfOptions.inDither=false;                     //Disable Dithering mode
             bfOptions.inPurgeable=true;                   //Tell to gc that whether it needs free memory, the Bitmap can be cleared
             bfOptions.inInputShareable=true;              //Which kind of reference will be used to recover the Bitmap data after being clear, when it will be used in the future
-            bfOptions.inTempStorage=new byte[32 * 1024];
+            bfOptions.inTempStorage=new byte[1024];
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in, null, bfOptions);
             in.close();
