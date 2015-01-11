@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,6 +36,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
@@ -50,9 +52,9 @@ import com.pauphilet_romero.destagram.utils.FileDialog;
  * Onglet "Ajout de média"
  */
 public class MainTabsMediaFragment extends Fragment {
-    private Button mTakePhoto;
+    private ImageButton mTakePhoto;
     private Button mUpload;
-    private Button mChooseFile;
+    private ImageButton mChooseFile;
     private ImageView mImageView;
     private FileDialog fileDialog;
     private Bitmap fullsizePhoto;
@@ -66,14 +68,15 @@ public class MainTabsMediaFragment extends Fragment {
         final Intent intent = getActivity().getIntent();
         token = intent.getStringExtra("token");
         rootView = inflater.inflate(R.layout.fragment_main_tabs_media, container, false);
-        EditText edit_titre = (EditText) rootView.findViewById(R.id.titre);
-        EditText edit_desc = (EditText) rootView.findViewById(R.id.description);
-        mChooseFile = (Button) rootView.findViewById(R.id.choose_file);
-        edit_titre.setText(new String(""));
-        edit_desc.setText(new String(""));
-        mTakePhoto = (Button) rootView.findViewById(R.id.take_photo);
+        mChooseFile = (ImageButton) rootView.findViewById(R.id.choose_file);
+        mTakePhoto = (ImageButton) rootView.findViewById(R.id.take_photo);
         mImageView = (ImageView) rootView.findViewById(R.id.imageview);
         mUpload = (Button) rootView.findViewById(R.id.upload);
+        EditText editTitre = (EditText) rootView.findViewById(R.id.titre);
+        EditText editDesc = (EditText) rootView.findViewById(R.id.description);
+        editTitre.setText("");
+        editDesc.setText("");
+
         mChooseFile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -96,6 +99,7 @@ public class MainTabsMediaFragment extends Fragment {
                 fileDialog.showDialog();
             }
         });
+
         mTakePhoto.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -107,6 +111,7 @@ public class MainTabsMediaFragment extends Fragment {
                 }
             }
         });
+
         mUpload.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -114,6 +119,7 @@ public class MainTabsMediaFragment extends Fragment {
             }
 
         });
+
         return rootView;
     }
 
@@ -263,21 +269,13 @@ public class MainTabsMediaFragment extends Fragment {
                 try {
                     reqEntity.addPart("token",
                             new StringBody(token));
+                    reqEntity.addPart("titre",new StringBody(edit_titre.getText().toString(), Charset.forName("UTF-8")));
+                    reqEntity.addPart("description",
+                            new StringBody(edit_desc.getText().toString(), Charset.forName("UTF-8")));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 };
 
-                try {
-                    reqEntity.addPart("titre",new StringBody(edit_titre.getText().toString()));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    reqEntity.addPart("description",
-                            new StringBody(edit_desc.getText().toString()));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
                 httppost.setEntity(reqEntity);
                 Log.i(TAG, "request " + httppost.getRequestLine());
                 HttpResponse response = null;

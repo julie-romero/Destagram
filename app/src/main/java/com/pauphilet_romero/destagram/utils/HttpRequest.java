@@ -55,7 +55,7 @@ public class HttpRequest {
         try {
 
             HttpPost httpPost = new HttpPost(url);
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
             httpResponse = httpClient.execute(httpPost);
 
             // on exécute et on récupère la réponse

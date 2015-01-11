@@ -9,80 +9,79 @@
     tools:context="com.pauphilet_romero.destagram.MainTabsHomeFragment"
     android:weightSum="1">
 
-    <!-- TODO: Update blank fragment layout -->
-   <!-- <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="Ajouter un média" />-->
-    <ImageView
-        android:id="@+id/imageview"
-        android:layout_width="500px"
-        android:layout_height="500px"
-        />
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_weight="0.05">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="left|bottom"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="0.05">
+
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="fill_parent"
+                android:layout_height="500px"
+                android:layout_gravity="center_horizontal"
+                android:background="#46222222" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_horizontal"
+                android:layout_weight="0.05">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choisir un fichier"
+                    android:id="@+id/choose_file"
+                    android:src="@drawable/ic_action_new_attachment"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toLeftOf="@+id/take_photo" />
+
+                <ImageButton
+                    android:id="@+id/take_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prendre une photo"
+                    android:src="@drawable/ic_action_camera"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="105dp"
+                    android:layout_alignBaseline="@+id/choose_file" />
+            </RelativeLayout>
 
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titre"
+                android:layout_weight="1"
+                android:hint="Titre" />
 
-        <Button
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/description"
+                android:hint="Description"
+                android:autoText="false"
+                android:gravity="top" />
+
+            <Button
+                android:id="@+id/upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose file"
-                android:id="@+id/choose_file" />
-
-        <Button
-                android:id="@+id/take_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Take photo"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
-
-
-    <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.03">
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/titre"
-            android:layout_weight="1"
-            android:hint="Titre" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.03">
-
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/description"
-            android:layout_weight="1"
-            android:hint="Description" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="41dp">
-        <Button
-            android:id="@+id/upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Envoyer"
-            />
+                android:text="Envoyer"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
-
-
-
+    </ScrollView>
 
 </LinearLayout>

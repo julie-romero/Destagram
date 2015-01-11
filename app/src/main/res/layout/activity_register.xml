@@ -57,8 +57,7 @@
         android:layout_marginTop="45dp"
         android:onClick="register"
         android:layout_below="@+id/pseudoField"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/black" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
