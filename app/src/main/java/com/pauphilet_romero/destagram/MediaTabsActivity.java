@@ -25,6 +25,10 @@ public class MediaTabsActivity extends FragmentActivity implements ActionBar.Tab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_tabs);
 
+        // changement d'icone dans la barre d'action
+        getActionBar().setIcon(R.drawable.ic_action_back);
+        getActionBar().setHomeButtonEnabled(true);
+
         // Initialisation pour les onglets
         viewPager = (ViewPager) findViewById(R.id.pagerMedia);
         actionBar = getActionBar();
@@ -77,17 +81,16 @@ public class MediaTabsActivity extends FragmentActivity implements ActionBar.Tab
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.myProfile) {
-            Intent oldIntent = getIntent();
-            String token = oldIntent.getStringExtra("token");
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            intent.putExtra("token", token);
-            startActivity(intent);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent oldIntent = getIntent();
+                String token = oldIntent.getStringExtra("token");
+                Intent intent = new Intent(getApplicationContext(), MainTabsActivity.class);
+                intent.putExtra("token", token);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }

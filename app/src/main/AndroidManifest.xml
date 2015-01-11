@@ -45,11 +45,17 @@
             android:name=".MediaTabsActivity"
             android:label="@string/title_activity_media"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pauphilet_romero.destagram.MainTabsActivity" />
         </activity>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pauphilet_romero.destagram.MainTabsActivity" />
         </activity>
     </application>
 

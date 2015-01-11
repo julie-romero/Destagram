@@ -32,6 +32,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +61,8 @@ public class MainTabsMediaFragment extends Fragment {
     private Bitmap fullsizePhoto;
     private static final String TAG = "upload";
     private String token = "";
+    private EditText editTitre;
+    private EditText editDesc;
     static final int REQUEST_TAKE_PHOTO = 1;
     File fullSizeFile = null;
     private View rootView;
@@ -72,8 +75,8 @@ public class MainTabsMediaFragment extends Fragment {
         mTakePhoto = (ImageButton) rootView.findViewById(R.id.take_photo);
         mImageView = (ImageView) rootView.findViewById(R.id.imageview);
         mUpload = (Button) rootView.findViewById(R.id.upload);
-        EditText editTitre = (EditText) rootView.findViewById(R.id.titre);
-        EditText editDesc = (EditText) rootView.findViewById(R.id.description);
+        editTitre = (EditText) rootView.findViewById(R.id.titre);
+        editDesc = (EditText) rootView.findViewById(R.id.description);
         editTitre.setText("");
         editDesc.setText("");
 
@@ -115,7 +118,15 @@ public class MainTabsMediaFragment extends Fragment {
         mUpload.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                sendPhoto();
+                if (fullSizeFile == null || !fullSizeFile.exists()) {
+                    Toast toast = Toast.makeText(getActivity(), R.string.error_media_file, Toast.LENGTH_SHORT);
+                    toast.show();
+                } else if (TextUtils.isEmpty(editTitre.getText().toString())) {
+                    Toast toast = Toast.makeText(getActivity(), R.string.error_media_title, Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    sendPhoto();
+                }
             }
 
         });

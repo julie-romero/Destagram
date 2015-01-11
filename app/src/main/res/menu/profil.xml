@@ -1,8 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.pauphilet_romero.destagram.MainTabsActivity" >
-    <item android:id="@+id/myProfile"
-        android:icon="@drawable/user_icon"
-        android:title="@string/profil"
-        android:showAsAction="ifRoom" />
 </menu>

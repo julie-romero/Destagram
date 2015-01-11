@@ -7,15 +7,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pauphilet_romero.destagram.adapters.FriendsAdapter;
 import com.pauphilet_romero.destagram.adapters.MainTabsPagerAdapter;
 import com.pauphilet_romero.destagram.models.Friend;
+import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
 
@@ -63,10 +70,23 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
     private Boolean error = true;
     private FriendsAdapter adapter;
 
+    ///// éléments pour le slidingPane /////
+    // le layout
+    MySlidingPaneLayout mSlidingPanel;
+    // la liste du menu
+    ListView mMenuList;
+    // l'icône dans l'action bar
+    ImageView appImage;
+    // le contenu de la liste du menu
+    String [] menuTitles = new String[]{"Mes médias", "Déconnexion"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tabs);
+
+        // changement d'icone dans la barre d'action
+        getActionBar().setIcon(R.drawable.ic_menu);
 
         // Initialisation pour les onglets
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -87,6 +107,15 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
+
+                // changement de titre du fragment quand on change d'onglet
+                if(position == 0) {
+                    getActionBar().setTitle(getString(R.string.title_activity_upload));
+                } else if(position == 1) {
+                    getActionBar().setTitle(getString(R.string.title_activity_profil));
+                } else if(position == 2) {
+                    getActionBar().setTitle(getString(R.string.title_activity_friends_list));
+                }
             }
 
             @Override
@@ -97,7 +126,62 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
+        // Gestion du menu avec le slidingPane
+        mSlidingPanel = (MySlidingPaneLayout) findViewById(R.id.SlidingPanel);
+        mMenuList = (ListView) findViewById(R.id.MenuList);
+        appImage = (ImageView)findViewById(android.R.id.home);
+
+        // Listener sur le menu afin de lancer l'action adéquat selon l'élément du menu cliqué
+        mMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                // redirige vers l'activité listant les médias de l'utilisateur
+                if (position == 0) {
+                    Intent oldIntent = getIntent();
+                    String token = oldIntent.getStringExtra("token");
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intent.putExtra("token", token);
+                    startActivity(intent);
+                // déconnecte l'utilisateur de l'application
+                } else if (position == 1) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    // on vide le "back stack" pour empêcher l'utilisation du bouton précédent
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        mMenuList.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, menuTitles));
+
+        mSlidingPanel.setPanelSlideListener(panelListener);
+
+        getActionBar().setDisplayShowHomeEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
     }
+
+    MySlidingPaneLayout.PanelSlideListener panelListener = new MySlidingPaneLayout.PanelSlideListener(){
+
+        @Override
+        public void onPanelClosed(View arg0) {
+            // TODO Auto-genxxerated method stub        getActionBar().setTitle(getString(R.string.app_name));
+            appImage.animate().rotation(0);
+        }
+
+        @Override
+        public void onPanelOpened(View arg0) {
+            // TODO Auto-generated method stub
+            appImage.animate().rotation(90);
+        }
+
+        @Override
+        public void onPanelSlide(View arg0, float arg1) {
+            // TODO Auto-generated method stub
+
+        }
+
+    };
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -121,16 +205,20 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.myProfile) {
-            Intent oldIntent = getIntent();
-            String token = oldIntent.getStringExtra("token");
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            intent.putExtra("token", token);
-            startActivity(intent);
+        // TODO Auto-generated method stub
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if(mSlidingPanel.isOpen()){
+                    appImage.animate().rotation(0);
+                    mSlidingPanel.closePane();
+                }
+                else{
+                    appImage.animate().rotation(90);
+                    mSlidingPanel.openPane();
+                }
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

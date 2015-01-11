@@ -3,6 +3,7 @@ package com.pauphilet_romero.destagram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,15 +32,21 @@ public class ProfileActivity extends Activity {
     private MediasAdapter adapter;
     private GridView gridView;
 
+    private String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // changement d'icone dans la barre d'action
+        getActionBar().setIcon(R.drawable.ic_action_back);
+        getActionBar().setHomeButtonEnabled(true);
+
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
         final Intent intent = getIntent();
-        final String token = intent.getStringExtra("token");
+        token = intent.getStringExtra("token");
         final int userId = intent.getIntExtra("userId", 0);
         gridView = (GridView) findViewById(R.id.listMedias);
 
@@ -131,16 +138,14 @@ public class ProfileActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(getApplicationContext(), MainTabsActivity.class);
+                intent.putExtra("token", token);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

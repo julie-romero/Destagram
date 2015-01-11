@@ -106,13 +106,23 @@ public class MediaTabsCommentFragment extends android.support.v4.app.Fragment {
                                             nameValuePairs.add(new BasicNameValuePair("comment", message.getText().toString() ));
                                             nameValuePairs.add(new BasicNameValuePair("id", mediaId+""));
 
-                                            new HttpRequest("http://destagram.zz.mu/comment.php", nameValuePairs);
+                                            HttpRequest commentRequest = new HttpRequest("http://destagram.zz.mu/comment.php", nameValuePairs);
 
-                                            getActivity().finish();
-                                            startActivity(getActivity().getIntent());
+                                            try {
+                                                JSONObject json = new JSONObject(commentRequest.getResponse());
+                                                boolean commentError = json.getBoolean("error");
+
+                                                if (!commentError) {
+                                                    getActivity().finish();
+                                                    startActivity(getActivity().getIntent());
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
                                     });
                                     thread.start();
+
                                 }
                             });
                         }

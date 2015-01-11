@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- Textes de l'application -->
     <string name="app_name">Destagram</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Textes de la page d'accueil, inscription et connexion -->
     <string name="home_message_1">Partagez votre monde à votre monde !</string>
     <string name="home_message_2">C\'est gratuit !</string>
     <string name="button_login">Se connecter</string>
     <string name="button_register">S\'inscrire</string>
-    <string name="title_activity_login">Connexion</string>
-    <string name="title_activity_register">Inscription</string>
-    <string name="title_activity_profil">Menu principal</string>
-    <string name="hello_world">Hello world!</string>
     <string name="field_email">Email</string>
     <string name="field_password">Mot de passe</string>
+    <string name="register_success">Félicitations ! Vous pouvez maintenant vous connecter sur Destagram.</string>
+
+    <!-- Titres des activités -->
+    <string name="title_activity_login">Connexion</string>
+    <string name="title_activity_register">Inscription</string>
+    <string name="title_activity_profil">Activités de mes amis</string>
+    <string name="title_activity_friends_list">Mes amis</string>
+    <string name="title_activity_upload">Uploader un média</string>
+    <string name="title_activity_media">MediaActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+
+    <!-- Messages d'erreurs -->
     <string name="error_empty_fields">Les champs doivent être renseignés.</string>
     <string name="error_empty_friend">Veuillez entrer un pseudo ou un email.</string>
     <string name="error_empty_pseudo">Veuillez entrer un pseudo.</string>
@@ -27,14 +37,14 @@
     <string name="error_connect">L\'email ou le mot de passe est incorrect.</string>
     <string name="error_internet">Vous n\'êtes pas connecté à Internet.</string>
     <string name="error_general">Une erreur est survenue. Votre appareil va exploser.</string>
-    <string name="register_success">Félicitations ! Vous pouvez maintenant vous connecter sur Destagram.</string>
-    <string name="title_activity_friends_list">FriendsList</string>
+    <string name="error_media_title">Vous devez renseigner un titre.</string>
+    <string name="error_media_file">Vous devez sélectionner une photo.</string>
+
+    <!-- Autres textes -->
     <string name="ajouter">Ajouter</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_media">MediaActivity</string>
     <string name="like">J\'aime</string>
     <string name="dislike">Je n\'aime plus</string>
-    <string name="title_activity_profile">ProfileActivity</string>
     <string name="profil">Profil</string>
+    <string name="comment_success">Commentaire ajouté.</string>
 
 </resources>

@@ -40,6 +40,11 @@ public class MediaTabsMediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_media_tabs_media, container, false);
+
+        // changement d'icone dans la barre d'action
+        getActivity().getActionBar().setIcon(R.drawable.ic_action_back);
+        getActivity().getActionBar().setHomeButtonEnabled(true);
+
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
         // On récupère l'ID du média et le token de connexion via l'intent
