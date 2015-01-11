@@ -46,5 +46,6 @@
     <string name="dislike">Je n\'aime plus</string>
     <string name="profil">Profil</string>
     <string name="comment_success">Commentaire ajouté.</string>
+    <string name="empty_profile">Cet utilisateur n\'a pas encore publié sur son profil.</string>
 
 </resources>

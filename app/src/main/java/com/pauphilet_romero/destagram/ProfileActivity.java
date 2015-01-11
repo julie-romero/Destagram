@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pauphilet_romero.destagram.adapters.MediasAdapter;
@@ -87,26 +90,33 @@ public class ProfileActivity extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // on lie l'adapter à la gridView
-                                    gridView.setAdapter(adapter);
 
-                                    // au clic sur un média, on lance la MediaActivity correspondante
-                                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                                            // on récupère le média sélectionné
-                                            Media media = (Media) gridView.getItemAtPosition(position);
+                                    // on affiche un message si l'utilisateur n'a aucun média sur son profil
+                                    if (medias.size() == 0 ) {
+                                        TextView text = (TextView) findViewById(R.id.emptyProfile);
+                                        text.setVisibility(View.VISIBLE);
+                                    } else {
+                                        // on lie l'adapter à la gridView
+                                        gridView.setAdapter(adapter);
 
-                                            // On instancie l'intent
-                                            Intent intent = new Intent(getApplicationContext(), MediaTabsActivity.class);
-                                            // On y place les données souhaitées
-                                            intent.putExtra("mediaId", media.getId());
-                                            intent.putExtra("mediaTitle", media.getTitre());
-                                            intent.putExtra("token", token);
+                                        // au clic sur un média, on lance la MediaActivity correspondante
+                                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                                                // on récupère le média sélectionné
+                                                Media media = (Media) gridView.getItemAtPosition(position);
 
-                                            // On démarre la nouvelle activité
-                                            startActivity(intent);
-                                        }
-                                    });
+                                                // On instancie l'intent
+                                                Intent intent = new Intent(getApplicationContext(), MediaTabsActivity.class);
+                                                // On y place les données souhaitées
+                                                intent.putExtra("mediaId", media.getId());
+                                                intent.putExtra("mediaTitle", media.getTitre());
+                                                intent.putExtra("token", token);
+
+                                                // On démarre la nouvelle activité
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
                                 }
                             });
                         }

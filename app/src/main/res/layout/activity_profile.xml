@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pauphilet_romero.destagram.ProfileActivity">
+    tools:context="com.pauphilet_romero.destagram.ProfileActivity"
+    android:id="@+id/layoutMedias">
 
     <GridView
         android:id="@+id/listMedias"
@@ -11,5 +12,16 @@
         android:horizontalSpacing="0dp"
         android:stretchMode="columnWidth"
         android:numColumns="2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/empty_profile"
+        android:id="@+id/emptyProfile"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>
