@@ -6,58 +6,72 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.pauphilet_romero.destagram.RegisterActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/emailField"
-        android:layout_marginTop="55dp"
-        android:hint="Email"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/passwordConfirmField" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="left|bottom"
+        android:fillViewport="false">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/passwordField"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left|top">
 
-        android:hint="Mot de passe"
-        android:layout_below="@+id/emailField"
-        android:layout_alignLeft="@+id/emailField"
-        android:layout_marginTop="45dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/emailField"
+                android:layout_marginTop="55dp"
+                android:hint="Email"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/passwordConfirmField" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/passwordConfirmField"
-        android:hint="Confirmation"
-        android:layout_below="@+id/passwordField"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/pseudoField"
-        android:layout_below="@+id/passwordConfirmField"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:hint="Pseudo" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="S'inscrire"
-        android:id="@+id/registerButton"
-        android:layout_marginTop="45dp"
-        android:onClick="register"
-        android:layout_below="@+id/pseudoField"
-        android:layout_centerHorizontal="true" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/passwordField"
+
+                android:hint="Mot de passe"
+                android:layout_below="@+id/emailField"
+                android:layout_alignLeft="@+id/emailField"
+                android:layout_marginTop="45dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/passwordConfirmField"
+                android:hint="Confirmation"
+                android:layout_below="@+id/passwordField"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/pseudoField"
+                android:layout_below="@+id/passwordConfirmField"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp"
+                android:hint="Pseudo" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S'inscrire"
+                android:id="@+id/registerButton"
+                android:layout_marginTop="45dp"
+                android:onClick="register"
+                android:layout_below="@+id/pseudoField"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
