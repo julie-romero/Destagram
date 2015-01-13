@@ -1,4 +1,4 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities.mediaTabs;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -9,12 +9,14 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.pauphilet_romero.destagram.R;
+import com.pauphilet_romero.destagram.activities.homeTabs.HomeActivity;
 import com.pauphilet_romero.destagram.adapters.MediaTabsPagerAdapter;
 
 /**
  * Activité gérant les onglets "infos d'un média - commentaires d'un média"
  */
-public class MediaTabsActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MediaActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private ViewPager viewPager;
     private MediaTabsPagerAdapter mAdapter;
@@ -25,6 +27,10 @@ public class MediaTabsActivity extends FragmentActivity implements ActionBar.Tab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_tabs);
 
+        displayMedia();
+    }
+
+    public void displayMedia() {
         // changement d'icone dans la barre d'action
         getActionBar().setIcon(R.drawable.ic_action_back);
         getActionBar().setHomeButtonEnabled(true);
@@ -85,7 +91,7 @@ public class MediaTabsActivity extends FragmentActivity implements ActionBar.Tab
             case android.R.id.home:
                 Intent oldIntent = getIntent();
                 String token = oldIntent.getStringExtra("token");
-                Intent intent = new Intent(getApplicationContext(), MainTabsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.putExtra("token", token);
                 startActivity(intent);
                 return true;

@@ -1,13 +1,11 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities.homeTabs;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,15 +14,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.R;
+import com.pauphilet_romero.destagram.activities.MainActivity;
+import com.pauphilet_romero.destagram.activities.ProfileActivity;
 import com.pauphilet_romero.destagram.adapters.FriendsAdapter;
 import com.pauphilet_romero.destagram.adapters.MainTabsPagerAdapter;
-import com.pauphilet_romero.destagram.models.Friend;
-import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
+import com.pauphilet_romero.destagram.viewElements.MySlidingPaneLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,12 +34,9 @@ import java.net.URLEncoder;
 /**
  * Activité gérant les onglets "home - ajouter un média - amis"
  */
-public class MainTabsActivity extends FragmentActivity implements ActionBar.TabListener {
-    // Storage for camera image URI components
-    private final static String CAPTURED_PHOTO_PATH_KEY = "mCurrentPhotoPath";
+public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
 
-    // Required for camera operations in order to save the image file on resume.
-    private String mCurrentPhotoPath = null;
+    //Permet de conserver le chemin de la photo capturée via la camera
     private String mCurrentPhotoFullSizePath = null;
 
     public String getmCurrentPhotoFullSizePath() {
@@ -50,17 +46,7 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
     public void setmCurrentPhotoFullSizePath(String mCurrentPhotoFullSizePath) {
         this.mCurrentPhotoFullSizePath = mCurrentPhotoFullSizePath;
     }
-    public static String getCapturedPhotoPathKey() {
-        return CAPTURED_PHOTO_PATH_KEY;
-    }
 
-    public String getmCurrentPhotoPath() {
-        return mCurrentPhotoPath;
-    }
-
-    public void setmCurrentPhotoPath(String mCurrentPhotoPath) {
-        this.mCurrentPhotoPath = mCurrentPhotoPath;
-    }
 
     private ViewPager viewPager;
     private MainTabsPagerAdapter mAdapter;
@@ -165,19 +151,16 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
 
         @Override
         public void onPanelClosed(View arg0) {
-            // TODO Auto-genxxerated method stub        getActionBar().setTitle(getString(R.string.app_name));
             appImage.animate().rotation(0);
         }
 
         @Override
         public void onPanelOpened(View arg0) {
-            // TODO Auto-generated method stub
             appImage.animate().rotation(90);
         }
 
         @Override
         public void onPanelSlide(View arg0, float arg1) {
-            // TODO Auto-generated method stub
 
         }
 
@@ -260,10 +243,14 @@ public class MainTabsActivity extends FragmentActivity implements ActionBar.TabL
                             // si il n'y a pas d'erreur
                             if (!error) {
                                 JSONObject jsonFriend = json.getJSONObject("friend");
-                                final Friend friend = new Friend(jsonFriend);
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        adapter.add(friend);
+                                        toast.setText(R.string.friend_success);
+                                        toast.show();
+
+                                        // recharge l'activité
+                                        finish();
+                                        startActivity(getIntent());
                                     }
                                 });
                             } else if(json.getInt("code")==1){

@@ -1,4 +1,4 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities.homeTabs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.R;
+import com.pauphilet_romero.destagram.activities.ProfileActivity;
 import com.pauphilet_romero.destagram.adapters.FriendsAdapter;
 import com.pauphilet_romero.destagram.models.Friend;
-import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
 
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 /**
  * Fragment pour l'onglet "Amis"
  */
-public class MainTabsFriendsFragment extends Fragment {
+public class FriendsFragment extends Fragment {
 
     // booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;

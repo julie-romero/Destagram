@@ -1,4 +1,4 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities.homeTabs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.R;
+import com.pauphilet_romero.destagram.activities.mediaTabs.MediaActivity;
 import com.pauphilet_romero.destagram.adapters.MediasAdapter;
 import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 /**
  * Fragment pour l'onglet "Home"
  */
-public class MainTabsHomeFragment extends Fragment {
+public class MediasFragment extends Fragment {
 
     // booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
@@ -39,7 +39,15 @@ public class MainTabsHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_main_tabs_home, container, false);
+        displayMedias(rootView);
 
+        return rootView;
+    }
+
+    /**
+     * Affiche les medias des amis
+     */
+    public void displayMedias(View rootView){
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
         final Intent intent = getActivity().getIntent();
@@ -76,27 +84,27 @@ public class MainTabsHomeFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                // on lie l'adapter à la gridView
-                                gridView.setAdapter(adapter);
+                                    // on lie l'adapter à la gridView
+                                    gridView.setAdapter(adapter);
 
-                                // au clic sur un média, on lance la MediaActivity correspondante
-                                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                                    // on récupère le média sélectionné
-                                    Media media = (Media) gridView.getItemAtPosition(position);
+                                    // au clic sur un média, on lance la MediaActivity correspondante
+                                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                                            // on récupère le média sélectionné
+                                            Media media = (Media) gridView.getItemAtPosition(position);
 
-                                    // On instancie l'intent
-                                    Intent intent = new Intent(getActivity(), MediaTabsActivity.class);
-                                    // On y place les données souhaitées
-                                    intent.putExtra("mediaId", media.getId());
-                                    intent.putExtra("mediaTitle", media.getTitre());
-                                    intent.putExtra("token", token);
+                                            // On instancie l'intent
+                                            Intent intent = new Intent(getActivity(), MediaActivity.class);
+                                            // On y place les données souhaitées
+                                            intent.putExtra("mediaId", media.getId());
+                                            intent.putExtra("mediaTitle", media.getTitre());
+                                            intent.putExtra("token", token);
 
-                                    // On démarre la nouvelle activité
-                                    getActivity().startActivity(intent);
-                                    }
-                                });
-                            }
+                                            // On démarre la nouvelle activité
+                                            getActivity().startActivity(intent);
+                                        }
+                                    });
+                                }
                             });
                         }
                         else
@@ -115,7 +123,5 @@ public class MainTabsHomeFragment extends Fragment {
             toast.setText(R.string.error_internet);
             toast.show();
         }
-
-        return rootView;
     }
 }

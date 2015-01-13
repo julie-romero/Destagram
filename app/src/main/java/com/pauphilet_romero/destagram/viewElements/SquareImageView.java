@@ -1,4 +1,4 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.viewElements;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -29,6 +29,6 @@ public class SquareImageView extends ImageView
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth()); //Snap to width
+        setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth());
     }
 }

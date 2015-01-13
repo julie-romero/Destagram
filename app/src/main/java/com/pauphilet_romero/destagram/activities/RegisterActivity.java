@@ -1,4 +1,4 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.R;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
 import com.pauphilet_romero.destagram.utils.PasswordEncrypt;

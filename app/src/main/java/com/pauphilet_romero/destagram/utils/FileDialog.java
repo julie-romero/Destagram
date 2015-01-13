@@ -13,19 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Permet d'explorer les fichiers de l'appareil
  * Created by Julie on 03/01/2015.
  */
 public class FileDialog {
+
     private static final String PARENT_DIR = "..";
     private final String TAG = getClass().getName();
     private String[] fileList;
     private File currentPath;
+
     public interface FileSelectedListener {
         void fileSelected(File file);
     }
+
     public interface DirectorySelectedListener {
         void directorySelected(File directory);
     }
+
     private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<FileDialog.FileSelectedListener>();
     private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<FileDialog.DirectorySelectedListener>();
     private final Activity activity;

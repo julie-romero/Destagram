@@ -1,8 +1,6 @@
 package com.pauphilet_romero.destagram.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +12,7 @@ import com.pauphilet_romero.destagram.R;
 import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.DownloadImageTask;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
 
 /**
  * Adapter pour les médias
@@ -50,8 +46,8 @@ public class MediasAdapter extends ArrayAdapter<Media> {
      */
     public View getView(int position, View convertView, ViewGroup parent) {
         media = getItem(position);
-        // vérifie si une vue existante est utilisée
 
+        // vérifie si une vue existante est utilisée
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());

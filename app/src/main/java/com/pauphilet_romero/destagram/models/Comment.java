@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * Modèle Comment
  * Created by Jimmy on 16/12/2014.
  */
 public class Comment {

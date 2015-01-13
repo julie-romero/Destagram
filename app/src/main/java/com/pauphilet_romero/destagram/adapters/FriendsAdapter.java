@@ -39,6 +39,7 @@ public class FriendsAdapter extends ArrayAdapter<Friend> {
      */
     public View getView(int position, View convertView, ViewGroup parent) {
         Friend friend = getItem(position);
+
         // vérifie si une vue existante est utilisée
         ViewHolder viewHolder;
         if (convertView == null) {

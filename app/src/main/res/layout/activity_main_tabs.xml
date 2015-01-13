@@ -1,4 +1,4 @@
-<com.pauphilet_romero.destagram.MySlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.pauphilet_romero.destagram.viewElements.MySlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/SlidingPanel"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -22,4 +22,4 @@
         android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
 
-</com.pauphilet_romero.destagram.MySlidingPaneLayout>
+</com.pauphilet_romero.destagram.viewElements.MySlidingPaneLayout>

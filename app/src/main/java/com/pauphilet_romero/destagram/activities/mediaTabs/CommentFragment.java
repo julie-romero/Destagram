@@ -1,4 +1,4 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities.mediaTabs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.R;
 import com.pauphilet_romero.destagram.adapters.CommentsAdapter;
 import com.pauphilet_romero.destagram.models.Comment;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
@@ -24,12 +25,11 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Onglet des commentaires
  */
-public class MediaTabsCommentFragment extends android.support.v4.app.Fragment {
+public class CommentFragment extends android.support.v4.app.Fragment {
 
     // Booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
@@ -43,6 +43,12 @@ public class MediaTabsCommentFragment extends android.support.v4.app.Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_media_tabs_comment, container, false);
 
+        displayComment(rootView);
+
+        return rootView;
+    }
+
+    public void displayComment(View rootView) {
         // Création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
         // Récupération de l'intent
@@ -142,7 +148,5 @@ public class MediaTabsCommentFragment extends android.support.v4.app.Fragment {
             toast.setText(R.string.error_internet);
             toast.show();
         }
-
-        return rootView;
     }
 }

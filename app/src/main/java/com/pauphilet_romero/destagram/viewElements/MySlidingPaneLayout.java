@@ -1,4 +1,4 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.viewElements;
 
 import android.content.Context;
 import android.support.v4.widget.SlidingPaneLayout;
@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
+ * Surcharge de l'élément SlidingPaneLayout
  * Created by Jimmy on 11/01/2015.
  */
 public class MySlidingPaneLayout extends SlidingPaneLayout{
@@ -20,10 +21,8 @@ public class MySlidingPaneLayout extends SlidingPaneLayout{
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-        /*
-         * If not slideable or if the "sliding" pane is open, let super method
-         * handle it.
-         */
+
+        // Si on ne peut pas "slider" ou si le panneau est ouvert, on appelle la super méthode
         if (!isSlideable() || isOpen())
             return super.onInterceptTouchEvent(e);
 
@@ -31,10 +30,6 @@ public class MySlidingPaneLayout extends SlidingPaneLayout{
             case MotionEvent.ACTION_DOWN: {
                 mTouchedDown = true;
 
-            /*
-             * "50" should be defined as a constant. Also this should be
-             * re-calculated in case the "sliding" pane is put at right side.
-             */
                 if (e.getX() > 50) {
                     mForwardTouchesToChildren = true;
                     return false;
@@ -60,5 +55,5 @@ public class MySlidingPaneLayout extends SlidingPaneLayout{
             return true;
 
         return super.onInterceptTouchEvent(e);
-    }// onInterceptTouchEvent()
+    }
 }

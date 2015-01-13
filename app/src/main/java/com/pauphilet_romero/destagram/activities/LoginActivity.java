@@ -1,14 +1,16 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.pauphilet_romero.destagram.R;
+import com.pauphilet_romero.destagram.activities.homeTabs.HomeActivity;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.HttpRequest;
 import com.pauphilet_romero.destagram.utils.PasswordEncrypt;
@@ -39,7 +41,6 @@ public class LoginActivity extends Activity {
         emailField = (EditText) findViewById(R.id.emailField);
         passwordField = (EditText) findViewById(R.id.passwordField);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,7 +74,7 @@ public class LoginActivity extends Activity {
         // récupération du mot de passe
         final String password = passwordField.getText().toString();
         // création de l'intent
-        final Intent intent = new Intent(getApplicationContext(), MainTabsActivity.class);
+        final Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         // création d'un toast pour afficher les erreurs
         final Toast toast = Toast.makeText(getApplicationContext(), R.string.error_empty_fields, Toast.LENGTH_SHORT);
 

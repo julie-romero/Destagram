@@ -1,20 +1,18 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities.mediaTabs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.R;
 import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
 import com.pauphilet_romero.destagram.utils.DateFunctions;
@@ -24,14 +22,13 @@ import com.pauphilet_romero.destagram.utils.HttpRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
  * Onglet affichant un média, ses commentaires et les informations lui étant liées
  */
-public class MediaTabsMediaFragment extends Fragment {
+public class MediaInfoFragment extends Fragment {
 
     // Booléen déterminant si une erreur est apparue lors de la connexion
     private Boolean error = true;
@@ -41,6 +38,12 @@ public class MediaTabsMediaFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_media_tabs_media, container, false);
 
+        displayInfo(rootView);
+
+        return rootView;
+    }
+
+    public void displayInfo(View rootView) {
         // changement d'icone dans la barre d'action
         getActivity().getActionBar().setIcon(R.drawable.ic_action_back);
         getActivity().getActionBar().setHomeButtonEnabled(true);
@@ -95,7 +98,7 @@ public class MediaTabsMediaFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                     // modification de ces composants
+                                    // modification de ces composants
                                     mediaTitle.setText(media.getTitre());
                                     mediaUser.setText(mediaUsername);
                                     mediaDate.setText(DateFunctions.diffDate(media.getDate()));
@@ -156,8 +159,6 @@ public class MediaTabsMediaFragment extends Fragment {
             toast.setText(R.string.error_internet);
             toast.show();
         }
-
-        return rootView;
     }
 
 }

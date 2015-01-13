@@ -1,19 +1,19 @@
-package com.pauphilet_romero.destagram;
+package com.pauphilet_romero.destagram.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pauphilet_romero.destagram.R;
+import com.pauphilet_romero.destagram.activities.homeTabs.HomeActivity;
+import com.pauphilet_romero.destagram.activities.mediaTabs.MediaActivity;
 import com.pauphilet_romero.destagram.adapters.MediasAdapter;
 import com.pauphilet_romero.destagram.models.Media;
 import com.pauphilet_romero.destagram.utils.ConnectionDetector;
@@ -27,7 +27,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-
+/**
+ * Activité qui liste les médias de l'utilisateur
+ */
 public class ProfileActivity extends Activity {
 
     // booléen déterminant si une erreur est apparue lors de la connexion
@@ -42,6 +44,13 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        mediasList();
+    }
+
+    /**
+     * Liste les médias de l'utilisateur
+     */
+    public void mediasList() {
         // changement d'icone dans la barre d'action
         getActionBar().setIcon(R.drawable.ic_action_back);
         getActionBar().setHomeButtonEnabled(true);
@@ -72,7 +81,7 @@ public class ProfileActivity extends Activity {
                     HttpRequest request = null;
                     try {
                         request = new HttpRequest("http://destagram.zz.mu/medias.php?token="+ URLEncoder.encode(token, "UTF-8")
-                            + "&id=" + userId);
+                                + "&id=" + userId);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -106,7 +115,7 @@ public class ProfileActivity extends Activity {
                                                 Media media = (Media) gridView.getItemAtPosition(position);
 
                                                 // On instancie l'intent
-                                                Intent intent = new Intent(getApplicationContext(), MediaTabsActivity.class);
+                                                Intent intent = new Intent(getApplicationContext(), MediaActivity.class);
                                                 // On y place les données souhaitées
                                                 intent.putExtra("mediaId", media.getId());
                                                 intent.putExtra("mediaTitle", media.getTitre());
@@ -150,7 +159,7 @@ public class ProfileActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(getApplicationContext(), MainTabsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.putExtra("token", token);
                 startActivity(intent);
                 return true;

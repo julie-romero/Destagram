@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -17,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -27,35 +26,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".MainTabsActivity"
+            android:name=".activities.homeTabs.HomeActivity"
             android:label="@string/title_activity_profil"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".MediaTabsActivity"
+            android:name=".activities.mediaTabs.MediaActivity"
             android:label="@string/title_activity_media"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pauphilet_romero.destagram.MainTabsActivity" />
+                android:value=".activities.homeTabs.HomeActivity" />
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pauphilet_romero.destagram.MainTabsActivity" />
+                android:value=".activities.homeTabs.HomeActivity" />
         </activity>
     </application>
 

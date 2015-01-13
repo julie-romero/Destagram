@@ -46,8 +46,8 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
      */
     public View getView(int position, View convertView, ViewGroup parent) {
         comment = getItem(position);
-        // vérifie si une vue existante est utilisée
 
+        // vérifie si une vue existante est utilisée
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());

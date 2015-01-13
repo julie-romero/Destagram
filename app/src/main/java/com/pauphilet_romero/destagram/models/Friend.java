@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
+ * Modèle Friend
  * Created by Julie on 15/12/2014.
  */
 public class Friend {

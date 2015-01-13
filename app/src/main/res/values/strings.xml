@@ -42,6 +42,7 @@
 
     <!-- Autres textes -->
     <string name="ajouter">Ajouter</string>
+    <string name="friend_success">Ami ajouté</string>
     <string name="like">J\'aime</string>
     <string name="dislike">Je n\'aime plus</string>
     <string name="profil">Profil</string>

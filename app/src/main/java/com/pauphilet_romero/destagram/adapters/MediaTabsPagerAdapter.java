@@ -4,11 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.pauphilet_romero.destagram.MainTabsFriendsFragment;
-import com.pauphilet_romero.destagram.MainTabsHomeFragment;
-import com.pauphilet_romero.destagram.MainTabsMediaFragment;
-import com.pauphilet_romero.destagram.MediaTabsCommentFragment;
-import com.pauphilet_romero.destagram.MediaTabsMediaFragment;
+import com.pauphilet_romero.destagram.activities.mediaTabs.CommentFragment;
+import com.pauphilet_romero.destagram.activities.mediaTabs.MediaInfoFragment;
 
 /**
  * PagerAdapter pour les onglets de l'activité MediaTabsActivity
@@ -33,10 +30,10 @@ public class MediaTabsPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 // Fragment gérant les informations du média
-                return new MediaTabsMediaFragment();
+                return new MediaInfoFragment();
             case 1:
                 // Fragment gérant les commentaires du média
-                return new MediaTabsCommentFragment();
+                return new CommentFragment();
         }
 
         return null;
